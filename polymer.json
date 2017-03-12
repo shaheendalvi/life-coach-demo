@@ -1,11 +1,9 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/ing-life-coach.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
+    "src/ing-home.html",
+    "src/ing-login.html"
   ],
   "sourceGlobs": [
     "src/**/*",

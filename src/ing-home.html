@@ -11,27 +11,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view2">
+<dom-module id="ing-home">
   <template>
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+      .coach-info {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 300px;
+        height: 400px;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+      .coach-profile-pic {
+          width: 280px;
+          border: 1px solid;
+          height: 150px;
+          margin-top: 10px;
+      }
+      .coach-profile {
+
       }
     </style>
 
-    <div class="card">
-      <div class="circle">2</div>
-      <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
+    <div class="container">
+        <h3>Meet our coaches</h3>
+        <div class="coach-info">
+          <div class="coach-profile-pic">
+            coach profile pic
+          </div>
+          <div class="coach-profile">
+            coach info
+          </div> 
+        </div>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'my-view2',
+      is: 'ing-home',
     });
   </script>
 </dom-module>
