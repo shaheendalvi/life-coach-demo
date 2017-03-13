@@ -97,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-login name="login"></ing-login>
           <ing-home name="home"></ing-home>
           <my-view404 name="view404"></my-view404>
-          <ing-wheel-of-life name="wheeloflife"></ing-wheel-of-life>
+          <ing-wheel-of-life name="wheeloflife" wheel-of-life-preference="{{wheelOfLifePreference}}"></ing-wheel-of-life>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -116,9 +116,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         signedIn: {
           type: Boolean,
           value: false
+        },
+        wheelOfLifePreference: {
+          type: Object,
+          value: null
         }
       },
 
+      ready: function() {
+        wheelOfLifePreference = [ {id:'RM', order:1, score:60, weight:0.5, color:'#AB0066', label:'Romance'},
+          {id:'HL', order:1, score:90, weight:0.5, color:'#525199', label:'Health'},
+          {id:'FN', order:1, score:20, weight:0.5, color:'#D0D93C', label:'Finance'},
+          {id:'CR', order:1, score:50, weight:0.5, color:'#60A6DA', label:'Career'},
+          {id:'PG', order:1, score:40, weight:0.5, color:'#FF6200', label:'Personal Growth'},
+          {id:'HM', order:1, score:65, weight:0.5, color:'#D0D93C', label:'Home'},
+          {id:'FF', order:1, score:20, weight:0.5, color:'#000066', label:'Family & Friends'},
+          {id:'FH', order:1, score:80, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
+      },
       observers: [
         '_routePageChanged(routeData.page)',
       ],

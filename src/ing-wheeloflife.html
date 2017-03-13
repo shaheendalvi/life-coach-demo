@@ -30,10 +30,12 @@
     Polymer({
       is: 'ing-wheel-of-life',
       properties: {
-
+        wheelOfLifePreference: {
+          type: Object
+        }
       },
       ready: function() {
-        createChart(this.$.wheelContainer);
+        createChart(this.$.wheelContainer, wheelOfLifePreference);
       }
     });
   </script>
