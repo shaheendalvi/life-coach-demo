@@ -67,7 +67,8 @@ var data = [
       .attr("stroke", "gray")
       .attr("d", arc)
       .on('mouseover', tip.show)
-      .on('mouseout', tip.hide);
+      .on('mouseout', tip.hide)
+      .on('click',function(d){alert(d.data.id)});
       
     outerGroup
       .append("text")
@@ -75,7 +76,8 @@ var data = [
         return "translate(" + centroid(60, width, d.startAngle, d.endAngle) + ")";
       })
       .attr("text-anchor", "middle")
-      .text(function(d) { return d.data.label });
+      .text(function(d) { return d.data.label })
+      .on('click',function(d){alert(d.data.id)});
 
   var outerPath = svg.selectAll(".outlineArc")
       .data(pie(data))
