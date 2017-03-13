@@ -3,7 +3,9 @@
   "shell": "src/ing-life-coach.html",
   "fragments": [
     "src/ing-home.html",
-    "src/ing-login.html"
+    "src/ing-login.html",
+    "src/ing-smart-goals.html",
+    "src/ing-smart-goals-setting.html"
   ],
   "sourceGlobs": [
     "src/**/*",

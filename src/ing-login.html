@@ -44,8 +44,8 @@
 
       },
       onLogin: function(e) {
-        this.fire('iron-signal', {name: 'signin-changed', data: {loggedIn:false}});
-        this.fire('iron-signal', {name: 'navigate', data: {viewName: 'home'}});
+        window.history.pushState({}, null, '/home');
+        window.dispatchEvent(new CustomEvent('location-changed'));
       }
     });
   </script>

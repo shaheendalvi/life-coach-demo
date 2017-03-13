@@ -17,10 +17,16 @@
     "polymer": "Polymer/polymer#^1.6.0",
     "iron-signals": "^1.0.3",
     "paper-button": "^1.0.14",
-    "iron-image": "^1.2.5"
+    "iron-image": "^1.2.5",
+    "paper-dropdown-menu": "^1.5.0",
+    "paper-item": "^1.2.1",
+    "paper-listbox": "^1.1.2",
+    "paper-tooltip": "^1.1.3",
+    "paper-date-picker": "polymer-paper-date-picker#^1.2.0"
   },
   "devDependencies": {
-    "web-component-tester": "^4.0.0"
+    "web-component-tester": "^4.0.0",
+    "paper-dropdown-menu": "^1.5.0"
   },
   "private": true
 }
