@@ -29,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/highcharts-chart/highcharts-chart.html">
 <link rel="import" href="my-icons.html">
 
 <dom-module id="ing-life-coach">
@@ -78,20 +79,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-drawer-layout id="layout" fullbleed hidden>
      
-      <!--app-drawer id="drawer">
+      <app-drawer id="drawer">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="welcome" href="/welcome">Welcome</a>
-          <a name="home" href="/home">Home</a>
+          <!--a name="home" href="/home">Home</a-->
+		  <a name="wheeloflife" href="/wheeloflife">Wheel of Life</a>
           <a name="smart-goals" href="/smart-goals">Smart Goals</a>
-          <a name="wheeloflife" href="/wheeloflife">Wheel of Life</a>
+		  <a name="goal-tracking" href="/goal-tracking">Goal Tracking </a>
+          
         </iron-selector>
-      </app-drawer-->
+      </app-drawer>
 
       <app-header-layout has-scrolling-region>
       <app-header condenses reveals effects="waterfall">
           <app-toolbar>
-            <!--paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button-->
+            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>ING Life Coach</div>
           </app-toolbar>
         </app-header>
@@ -105,6 +108,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-home name="home"></ing-home>
           <ing-smart-goals name="smart-goals"></ing-smart-goals>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
+		  <ing-goal-tracking name="goal-tracking"></goal-tracking>
           <my-view404 name="view404"></my-view404>
           <ing-wheel-of-life name="wheeloflife" lifepreference="{{wheelOfLifePreference}}"></ing-wheel-of-life>
         </iron-pages>
@@ -129,6 +133,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         wheelOfLifePreference: {
           type: Object,
           value: null
+        },
+		chartData: {
+          type: Object,
+          value: null
         }
       },
 
@@ -141,6 +149,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {id:'HM', order:6, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
           {id:'FF', order:7, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
           {id:'FH', order:8, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
+		  
+		  //this.chartData = [[0,0],[1,7],[2,1],[3,6],[4,8],[5,6]];
       },
       observers: [
         '_routePageChanged(routeData.page)',
