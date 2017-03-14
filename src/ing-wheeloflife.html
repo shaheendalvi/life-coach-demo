@@ -59,7 +59,8 @@
           value: 50
         },
         currentSegmentLabel: {
-          type: String
+          type: String,
+          computed: 'getCurrentSegmentLabel(currentSegmentId,lifepreference)'
         }
       },
       observers: [
@@ -71,7 +72,7 @@
             return item.id === currentSegmentId;
           });
           if(selectedSegment && selectedSegment.length) {
-            this._currentSegmentProgressValueChanged(lifepreference[selectedSegment[0].order].score);
+            //this._currentSegmentProgressValueChanged(lifepreference[selectedSegment[0].order].score);
             this.$.slider.value = this.lifepreference[selectedSegment[0].order].score;
             return this.lifepreference[selectedSegment[0].order].label;
           }
@@ -93,9 +94,9 @@
         }
       },
       updateSelectedSegment: function(segmentId, context) {
-        var caller = context || this;
+        //var caller = context || this;
         this.currentSegmentId = segmentId;
-        this.currentSegmentLabel = caller.getCurrentSegmentLabel(this.currentSegmentId, this.lifepreference);
+        //this.currentSegmentLabel = caller.getCurrentSegmentLabel(this.currentSegmentId, this.lifepreference);
       },
       createChart: function (element, input, callbackFn) {
         var centroidfn = this.centroid;
