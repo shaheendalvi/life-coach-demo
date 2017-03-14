@@ -68,9 +68,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-drawer-layout id="layout" fullbleed>
-      <!-- Drawer content -->
-      <app-drawer id="drawer">
+    <app-drawer-layout id="layout" fullbleed hidden>
+      <app-drawer id="drawer" hidden>
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="login" href="/login">Login</a>
@@ -79,16 +78,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </iron-selector>
       </app-drawer>
 
-      <!-- Main content -->
       <app-header-layout has-scrolling-region>
-
-        <app-header condenses reveals effects="waterfall">
+      <app-header condenses reveals effects="waterfall">
           <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button icon="my-icons:menu" drawer-toggle ></paper-icon-button>
             <div main-title>ING Life Coach</div>
           </app-toolbar>
         </app-header>
-
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
@@ -97,7 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-login name="login"></ing-login>
           <ing-home name="home"></ing-home>
           <my-view404 name="view404"></my-view404>
-          <ing-wheel-of-life name="wheeloflife" wheel-of-life-preference="{{wheelOfLifePreference}}"></ing-wheel-of-life>
+          <ing-wheel-of-life name="wheeloflife" lifepreference="{{wheelOfLifePreference}}"></ing-wheel-of-life>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -124,14 +120,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function() {
-        wheelOfLifePreference = [ {id:'RM', order:1, score:60, weight:0.5, color:'#AB0066', label:'Romance'},
-          {id:'HL', order:1, score:90, weight:0.5, color:'#525199', label:'Health'},
-          {id:'FN', order:1, score:20, weight:0.5, color:'#D0D93C', label:'Finance'},
-          {id:'CR', order:1, score:50, weight:0.5, color:'#60A6DA', label:'Career'},
-          {id:'PG', order:1, score:40, weight:0.5, color:'#FF6200', label:'Personal Growth'},
-          {id:'HM', order:1, score:65, weight:0.5, color:'#D0D93C', label:'Home'},
-          {id:'FF', order:1, score:20, weight:0.5, color:'#000066', label:'Family & Friends'},
-          {id:'FH', order:1, score:80, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
+        this.wheelOfLifePreference = [ {id:'RM', order:1, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
+          {id:'HL', order:2, score:5, weight:0.5, color:'#525199', label:'Health'},
+          {id:'FN', order:3, score:5, weight:0.5, color:'#D0D93C', label:'Finance'},
+          {id:'CR', order:4, score:5, weight:0.5, color:'#60A6DA', label:'Career'},
+          {id:'PG', order:5, score:5, weight:0.5, color:'#FF6200', label:'Personal Growth'},
+          {id:'HM', order:6, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
+          {id:'FF', order:7, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
+          {id:'FH', order:8, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
       },
       observers: [
         '_routePageChanged(routeData.page)',

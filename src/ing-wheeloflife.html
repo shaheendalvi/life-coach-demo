@@ -2,6 +2,8 @@
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<script src="underscore-min.js"></script>
 <script src="d3.v3.min.js"></script>
 <script src="d3.tip.v0.6.3.js"></script>
 <script src="draw.js" ></script>
@@ -16,13 +18,19 @@
         padding: 10px;
          @apply(--layout-horizontal);
       }
+       paper-slider.blue {
+        --paper-slider-knob-color: var(--paper-light-blue-500);
+        --paper-slider-active-color: var(--paper-light-blue-500);
+      }
     </style>
 
     <div class="container">
-      <div id="wheelContainer">
-
-      </div>
       wheel of life
+      <div id="wheelContainer">
+      </div>
+      <div >
+        <paper-slider id="slider" class="blue" editable min="0" max="10" step="1" value="{{currentSegmentProgressValue}}"></paper-slider>
+      </div>
     </div>
   </template>
 
@@ -30,13 +38,43 @@
     Polymer({
       is: 'ing-wheel-of-life',
       properties: {
-        wheelOfLifePreference: {
+        lifepreference: {
           type: Object
+        },
+        currentSegmentId: {
+          type: String,
+          value: 'HL'
+        },
+        currentSegmentProgressValue: {
+          type: Number,
+          value: 50
         }
       },
+      observers: [
+        '_currentSegmentProgressValueChanged(currentSegmentProgressValue)'
+      ],
       ready: function() {
-        createChart(this.$.wheelContainer, wheelOfLifePreference);
+        createChart(this.$.wheelContainer, this.lifepreference);
+        window.addEventListener('selectionchanged', function() {
+          alert('hello');
+          console.log('Custom element attached event has fired');
+        }.bind(this));
+      },
+      _currentSegmentProgressValueChanged: function(val) {
+        var currentSegmantId = this.currentSegmentId;
+        var selectedSegment = _.filter(this.lifepreference, function(item){
+          return item.id === 'HL';//window.localStorage.getItem('SelectedCatagory');
+        });
+        if(selectedSegment && selectedSegment.length > 0) {
+          this.lifepreference[selectedSegment[0].order].score = val;
+          createChart(this.$.wheelContainer, this.lifepreference, this.$.selectedCat);
+        }
+        
+      },
+      updateSelectedSegment: function(segmentId) {
+        alert(segmentId);
       }
+
     });
   </script>
 </dom-module>

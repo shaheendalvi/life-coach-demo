@@ -1,14 +1,11 @@
-//(function(){
+function createChart(element, input, catagoryElement) {
+if(element){
+  element.innerHTML = '';
+  var margin = {top: 40, right: 10, bottom: 10, left: 10};
 
-function createChart(element, input) {
-
-
-
-  var margin = {top: 40, right: 80, bottom: 40, left: 80};
-
-  var width = 400,
-      height = 400,
-      radius = Math.min(width, height) / 2,
+  var width = 300,
+      height = 350,
+      radius = (Math.min(width, height) / 2),
       innerRadius = 0;
 
   var pie = d3.layout.pie()
@@ -25,7 +22,7 @@ function createChart(element, input) {
   var arc = d3.svg.arc()
     .innerRadius(innerRadius)
     .outerRadius(function (d) { 
-      return (radius - innerRadius) * (d.data.score / 100.0) + innerRadius; 
+      return (radius - innerRadius) * (d.data.score / 10.0) + innerRadius; 
     });
 
   var outlineArc = d3.svg.arc()
@@ -38,17 +35,17 @@ function createChart(element, input) {
       .append("g")
       .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
 
+
   svg.call(tip);
-  var data = input || [
-      {"id":"RM","order":"1","score":"60","weight":"0.5","color":"red","label":"Romance"},
-      {"id":"HL","order":"1","score":"90","weight":"0.5","color":"green","label":"Health"},
-      {"id":"FN","order":"1","score":"20","weight":"0.5","color":"yellow","label":"Finance"},
-      {"id":"CR","order":"1","score":"50","weight":"0.5","color":"blue","label":"Career"},
-      {"id":"PG","order":"1","score":"40","weight":"0.5","color":"orange","label":"Personal Growth"},
-      {"id":"HM","order":"1","score":"65","weight":"0.5","color":"purple","label":"Home"},
-      {"id":"FF","order":"1","score":"20","weight":"0.5","color":"black","label":"Family & Friends"},
-      {"id":"FH","order":"1","score":"80","weight":"0.5","color":"indigo","label":"Fun & Hobbies"}];
-  //d3.csv('aster_data.csv', function(error, data) {
+  var data = input || [ {id:'RM', order:1, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
+          {id:'HL', order:2, score:5, weight:0.5, color:'#525199', label:'Health'},
+          {id:'FN', order:3, score:5, weight:0.5, color:'#D0D93C', label:'Finance'},
+          {id:'CR', order:4, score:5, weight:0.5, color:'#60A6DA', label:'Career'},
+          {id:'PG', order:5, score:5, weight:0.5, color:'#FF6200', label:'Personal Growth'},
+          {id:'HM', order:6, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
+          {id:'FF', order:7, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
+          {id:'FH', order:8, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
+      var event = new Event('selectionchanged');
 
     data.forEach(function(d) {
       d.id     =  d.id;
@@ -59,7 +56,6 @@ function createChart(element, input) {
       d.width  = +d.weight;
       d.label  =  d.label;
     });
-    // for (var i = 0; i < data.score; i++) { console.log(data[i].id) }
     
     var outerGroup = svg.selectAll(".solidArc")
         .data(pie(data))
@@ -74,7 +70,11 @@ function createChart(element, input) {
         .attr("d", arc)
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
-        .on('click',function(d){alert(d.data.id)});
+        .on('click',function(d, catagoryElement){
+          alert(d.data.id);
+          
+          document.dispatchEvent(event);  
+        });
         
       outerGroup
         .append("text")
@@ -83,7 +83,10 @@ function createChart(element, input) {
         })
         .attr("text-anchor", "middle")
         .text(function(d) { return d.data.label })
-        .on('click',function(d){alert(d.data.id)});
+        .on('click',function(d, catagoryElement){
+          document.dispatchEvent(event);  
+          alert(d.data.id)
+        });
 
     var outerPath = svg.selectAll(".outlineArc")
         .data(pie(data))
@@ -93,31 +96,9 @@ function createChart(element, input) {
         .attr("class", "outlineArc")
         .attr("d", outlineArc);  
 
-
-    // calculate the weighted mean score
-  //   var score = 
-  //     data.reduce(function(a, b) {
-  //       //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-  //       return a + (b.score * b.weight); 
-  //     }, 0) / 
-  //     data.reduce(function(a, b) { 
-  //       return a + b.weight; 
-  //     }, 0);
-
-  //   svg.append("svg:text")
-  //     .attr("class", "aster-score")
-  //     .attr("dy", ".35em")
-  //     .attr("text-anchor", "middle") // text-align: right
-  //     .text(Math.round(score));
-      
     function centroid(innerR, outerR, startAngle, endAngle){
       var r = (innerR + outerR) / 2, a = (startAngle + endAngle) / 2 - (Math.PI / 2);
       return [ Math.cos(a) * r, Math.sin(a) * r ];
     }
-
-  //});
+  }
 }
-// return { 
-//   createChart: createChart
-// }
-// })();
