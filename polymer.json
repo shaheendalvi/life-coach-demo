@@ -7,7 +7,10 @@
     "src/ing-smart-goals.html",
     "src/ing-smart-goals-setting.html",
     "src/ing-wheeloflife.html",
-    "src/ing-wheelpretext.html"
+    "src/ing-wheelpretext.html",
+    "src/ing-achievable-goal-item.html",
+    "src/ing-big-letter-tooltip-desc.html",
+    "src/ing-login.html"
   ],
   "sourceGlobs": [
     "src/**/*",
