@@ -21,6 +21,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="ing-big-letter-tooltip-desc.html">
+<link rel="import" href="ing-achievable-goal-item.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-icons.html">
 
 <dom-module id="ing-life-coach">
@@ -75,6 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="welcome" href="/welcome">Welcome</a>
           <a name="home" href="/home">Home</a>
+          <a name="smart-goals" href="/smart-goals">Smart Goals</a>
           <a name="wheeloflife" href="/wheeloflife">Wheel of Life</a>
         </iron-selector>
       </app-drawer-->
@@ -96,6 +106,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             role="main">
           <ing-welcome name="welcome"></ing-welcome>
           <ing-home name="home"></ing-home>
+          <ing-smart-goals name="smart-goals"></ing-smart-goals>
+          <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
           <my-view404 name="view404"></my-view404>
           <ing-wheel-of-life name="wheeloflife"></ing-wheel-of-life>
         </iron-pages>

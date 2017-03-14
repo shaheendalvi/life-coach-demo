@@ -4,6 +4,8 @@
   "fragments": [
     "src/ing-home.html",
     "src/ing-login.html",
+    "src/ing-smart-goals.html",
+    "src/ing-smart-goals-setting.html"
     "src/ing-wheeloflife.html"
   ],
   "sourceGlobs": [
