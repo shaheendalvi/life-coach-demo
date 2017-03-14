@@ -71,8 +71,6 @@ if(element){
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide)
         .on('click',function(d, catagoryElement){
-          alert(d.data.id);
-          
           document.dispatchEvent(event);  
         });
         
@@ -85,7 +83,6 @@ if(element){
         .text(function(d) { return d.data.label })
         .on('click',function(d, catagoryElement){
           document.dispatchEvent(event);  
-          alert(d.data.id)
         });
 
     var outerPath = svg.selectAll(".outlineArc")
