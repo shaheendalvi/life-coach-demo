@@ -32,8 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div>
         <h3>SMART Goals - Setting</h3>
-        <paper-dropdown-menu label="Life category">
-          <paper-listbox class="dropdown-content" selected="1">
+        <paper-dropdown-menu label="Life category" id="category">
+          <paper-listbox class="dropdown-content" selected="1" id="category">
             <paper-item>Fun &amp; hobbies</paper-item>
             <paper-item>Romance</paper-item>
             <paper-item>Health</paper-item>
@@ -46,22 +46,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-dropdown-menu>
         
         <ing-big-letter-tooltip-desc big-letter="S" help-message="Specific - What is it you want to achieve? Write a statement that answers the question of - 'which, what, who, where, when, why">My SPECIFIC goal is?</ing-big-letter-tooltip-desc>
-        <paper-input no-label-float></paper-input>
+        <paper-input no-label-float id="specific"></paper-input>
       
         <ing-big-letter-tooltip-desc big-letter="M" help-message="Measure - You will need to be able to track the progress and measure the outcome. A good measure statement should answer the questions 'how much or how many'?">How will I MEASURE my progress</ing-big-letter-tooltip-desc>
-        <paper-input no-label-float></paper-input>
+        <paper-input no-label-float id="measure"></paper-input>
       
         <ing-big-letter-tooltip-desc big-letter="A" help-message="Achievable - So what are you going to do? Think about the smaller steps or actions that you need to take the achieve your goal.">This is an ACHIEVABLE Goal. These are the things I can do to achieve it...</ing-big-letter-tooltip-desc>
-        <ing-achievable-goal-item item-number="1"></ing-achievable-goal-item>
-        <ing-achievable-goal-item item-number="2"></ing-achievable-goal-item>
+        <div id="tasklist">
+          <!-- <ing-achievable-goal-item id="tasklist0" item-number="1"></ing-achievable-goal-item> //-->
+        </div>
+        <paper-button raised on-tap="addTask" style="width: 20px; height: 20px">+</paper-button>
       
         <ing-big-letter-tooltip-desc big-letter="R" help-message="Realistic - Your goal should be challenging but realistic and also relevant to you. Goals may appear optimistic initially, but as you develop strategies to achieve them they become more realistic.">This is a REALISTIC goal because...</ing-big-letter-tooltip-desc>
-        <paper-input no-label-float></paper-input>
+        <paper-input no-label-float id="realistic"></paper-input>
       
         <ing-big-letter-tooltip-desc big-letter="T" help-message="Timebased - Your goal should include a time limit. This helps you stay on track and also allows you to visualise what your life will be like... and when">I will achieve this goal in a TIMELY manner!</ing-big-letter-tooltip-desc>
         <div class="children-inline">
-          I will achievethis goal by 
-          <vaadin-date-picker label="Goal date">
+          I will achieve this goal by 
+          <vaadin-date-picker label="Goal date" id="timebased">
           </vaadin-date-picker>
         </div>
         
@@ -73,9 +75,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     Polymer({
       is: 'ing-smart-goals-setting',
+      properties: {
+        numberOfTasks: {
+          type: Number,
+          value: 0
+        }
+      },
+      getData: function () {
+        var goalData = {
+          category: this.$.category.value,
+          specific: this.$.specific.value,
+          measure: this.$.measure.value,
+          tasks: [],
+          realistic: this.$.realistic.value,
+          timebased: this.$.timebased.value
+        };
+        for (var a = 0, len = this.numberOfTasks; a < len; a++) {
+          goalData.tasks.push(this.$$('#itemtask' + a).getData());
+        }
+        return goalData;
+      },
       saveGoal: function () {
-        window.history.pushState({}, null, '/smart-goals');
-        window.dispatchEvent(new CustomEvent('location-changed'));
+        console.log('*** ', JSON.stringify(this.getData()));
+        //window.history.pushState({}, null, '/smart-goals');
+        //window.dispatchEvent(new CustomEvent('location-changed'));
+      },
+      addTask: function () {
+        var taskEl = document.createElement("ing-achievable-goal-item");
+        taskEl.setAttribute("id", "itemtask" + this.numberOfTasks);
+        taskEl.setAttribute("item-number", this.numberOfTasks + 1);
+        Polymer.dom(this.$.tasklist).appendChild(taskEl);
+        Polymer.dom.flush();
+        this.numberOfTasks++;
       }
     });
   </script>

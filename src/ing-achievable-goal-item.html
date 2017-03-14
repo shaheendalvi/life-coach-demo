@@ -34,8 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div>
       <span class="item-number">{{item-number}}</span>
-      <paper-input no-label-f1loat label="Task description" style="width: calc(90% - 130px)"></paper-input>
-      <vaadin-date-picker label="Task date">
+      <paper-input no-label-f1loat value={{taskdesc}} label="Task description" style="width: calc(90% - 130px)"></paper-input>
+      <vaadin-date-picker label="Task date" id="taskdate">
       </vaadin-date-picker>
     </div>
   </template>
@@ -47,10 +47,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         hide: {
           type: Boolean,
           value: true
-        }
+        },
       },
       openCalendar: function (e) {
         this.hide = false;
+      },
+      getData: function () {
+        return {
+          desc: this.taskdesc,
+          date: this.$.taskdate.value
+        }
       }
     });
   </script>
