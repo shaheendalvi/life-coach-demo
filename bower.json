@@ -22,7 +22,8 @@
     "paper-item": "^1.2.1",
     "paper-listbox": "^1.1.2",
     "paper-tooltip": "^1.1.3",
-    "paper-date-picker": "polymer-paper-date-picker#^1.2.0"
+    "paper-date-picker": "polymer-paper-date-picker#^1.2.0",
+    "paper-dialog": "^1.1.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0",
