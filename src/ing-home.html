@@ -1,0 +1,58 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="ing-home">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+      .coach-info {
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 300px;
+        height: 400px;
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+      .coach-profile-pic {
+          width: 280px;
+          border: 1px solid;
+          height: 150px;
+          margin-top: 10px;
+      }
+      .coach-profile {
+
+      }
+    </style>
+
+    <div class="container">
+        <h3>Meet our coaches</h3>
+        <div class="coach-info">
+          <div class="coach-profile-pic">
+            coach profile pic
+          </div>
+          <div class="coach-profile">
+            coach info
+          </div> 
+        </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-home',
+    });
+  </script>
+</dom-module>

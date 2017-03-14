@@ -1,0 +1,51 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<dom-module id="ing-login">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+         @apply(--layout-horizontal);
+      }
+      .login-button {
+        background: #1976d2;
+        color: white;
+        padding: 16px 32px;
+        margin: 10px;
+        width: 300px;
+      }
+      .lifecoach-image {
+        width: 250px;
+        height:250px;
+        border: 1px solid black;
+      }
+      
+    </style>
+
+    <div class="container">
+      <div class="lifecoach-image">
+        logo here
+        <iron-image src="" ></iron-image>
+      </div>
+      <paper-button raised class="login-button" on-tap="onLogin">Sign with Google</paper-button>
+      <paper-button raised class="login-button">Sign with Facebook</paper-button>
+      <paper-button raised class="login-button">Sign with Twitter</paper-button>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-login',
+      properties: {
+
+      },
+      onLogin: function(e) {
+        window.history.pushState({}, null, '/home');
+        window.dispatchEvent(new CustomEvent('location-changed'));
+      }
+    });
+  </script>
+</dom-module>

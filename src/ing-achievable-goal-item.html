@@ -1,0 +1,49 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="ing-achievable-goal-item">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 0px;
+      }
+      .item-number {
+        border: solid #000 1px;
+        padding: 8px 3px 8px 16px;
+        width: 24px;
+      }
+      SPAN, PAPER-INPUT {
+        display: inline-block;
+      }
+    </style>
+
+    <div>
+      <span class="item-number">{{item-number}}</span>
+      <paper-input no-label-float style="width: calc(90% - 130px)"></paper-input>
+      <paper-input no-label-float label="__ / __ / __" style="width: 90px;"></paper-input>
+      <paper-button on-tap="openCalendar"><img src="img/calendar-icon.png" alt="Open calendar" width="16"/></paper-button>
+      <!--<paper-date-picker id="picker" date="[[date]]"></paper-date-picker> //-->
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-achievable-goal-item',
+      openCalendar: function (e) {
+        this.setDialog(true);
+        this.$.datepicker.open();
+      }
+    });
+  </script>
+</dom-module>
