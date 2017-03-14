@@ -25,6 +25,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #4caf50;
         color: white;
       }
+      ing-big-letter-tooltip-desc {
+        margin-top: 20px;
+      }
     </style>
 
     <div>
@@ -71,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'ing-smart-goals-setting',
       saveGoal: function () {
-        window.history.pushState({}, null, '/where-to-go');
+        window.history.pushState({}, null, '/smart-goals');
         window.dispatchEvent(new CustomEvent('location-changed'));
       }
     });
