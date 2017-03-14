@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-icons.html">
-<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<!--<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>-->
 <dom-module id="ing-life-coach">
   <template>
     <style>
@@ -133,14 +133,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       ready: function() {
-        this.wheelOfLifePreference = [  {id:'FF', order:0, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
-          {id:'HL', order:1, score:5, weight:0.5, color:'#525199', label:'Health'},
-          {id:'FN', order:2, score:5, weight:0.5, color:'#D0D93C', label:'Finance'},
+        this.wheelOfLifePreference = [  {id:'FF', order:0, score:5, weight:0.5, color:'#BD3BBF', label:'Family & Friends'},
+          {id:'HL', order:1, score:5, weight:0.5, color:'#346951', label:'Health'},
+          {id:'FN', order:2, score:5, weight:0.5, color:'#767676', label:'Finance'},
           {id:'CR', order:3, score:5, weight:0.5, color:'#60A6DA', label:'Career'},
           {id:'PG', order:4, score:5, weight:0.5, color:'#FF6200', label:'Personal Growth'},
-          {id:'HM', order:5, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
+          {id:'HM', order:5, score:5, weight:0.5, color:'#3D3DAA', label:'Home'},
           {id:'RM', order:6, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
-          {id:'FH', order:7, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
+          {id:'FH', order:7, score:5, weight:0.5, color:'#D0D93C', label:'Fun & Hobbies'}];
       },
       observers: [
         '_routePageChanged(routeData.page)',
