@@ -6,7 +6,7 @@
 <script src="underscore-min.js"></script>
 <script src="d3.v3.min.js"></script>
 <script src="d3.tip.v0.6.3.js"></script>
-<script src="draw.js" ></script>
+<script src="draw.js"></script>
 
 
 
@@ -22,16 +22,24 @@
         --paper-slider-knob-color: var(--paper-light-blue-500);
         --paper-slider-active-color: var(--paper-light-blue-500);
       }
+      paper-slider:focus {
+        border: 1px dashed #CCCCCC;
+      }
       .button-width{
         width: 100px;
+      }
+      wheel-container {
+        margin-left: 11px;
       }
     </style>
 
     <div class="container">
       <span class="header"> Wheel of life</span>
-      <div id="wheelContainer">
+      <span> Start by picking a segment of your life from the graph below, use slider to choose your satisfaction on a scale of 1 to 10 </span>
+      <div id="wheelContainer" class="wheel-container">
       </div>
       <div>
+        <span>{{currentSegmentLabel}}:</span>
         <paper-slider id="slider" class="blue" editable min="0" max="10" step="1" value="{{currentSegmentProgressValue}}"></paper-slider>
       </div>
       <div>
@@ -46,7 +54,8 @@
       is: 'ing-wheel-of-life',
       properties: {
         lifepreference: {
-          type: Object
+          type: Object,
+          value: undefined
         },
         currentSegmentId: {
           type: String,
@@ -55,33 +64,135 @@
         currentSegmentProgressValue: {
           type: Number,
           value: 50
+        },
+        currentSegmentLabel: {
+          type: String,
+          computed: 'getCurrentSegmentLabel(currentSegmentId,lifepreference)'
         }
       },
       observers: [
         '_currentSegmentProgressValueChanged(currentSegmentProgressValue)'
       ],
+      getCurrentSegmentLabel: function(currentSegmentId,lifepreference){
+        if(currentSegmentId && lifepreference) {
+          var selectedSegment = _.filter(lifepreference, function(item){
+            return item.id === currentSegmentId;
+          });
+          if(selectedSegment && selectedSegment.length) {
+            //this._currentSegmentProgressValueChanged(lifepreference[selectedSegment[0].order].score);
+            this.$.slider.value = this.lifepreference[selectedSegment[0].order].score;
+            return this.lifepreference[selectedSegment[0].order].label;
+          }
+          return '';
+        }
+      },
       ready: function() {
-        createChart(this.$.wheelContainer, this.lifepreference);
-        window.addEventListener('selectionchanged', function() {
-          alert('hello');
-          console.log('Custom element attached event has fired');
-        }.bind(this));
+        this.updateSelectedSegment('HL');
+        this.createChart(this.$.wheelContainer, this.lifepreference, this.updateSelectedSegment);
       },
       _currentSegmentProgressValueChanged: function(val) {
-        var currentSegmantId = this.currentSegmentId;
+        var currentSegmentId = this.currentSegmentId;
         var selectedSegment = _.filter(this.lifepreference, function(item){
-          return item.id === 'HL';//window.localStorage.getItem('SelectedCatagory');
+          return item.id === currentSegmentId;//window.localStorage.getItem('SelectedCatagory');
         });
         if(selectedSegment && selectedSegment.length > 0) {
           this.lifepreference[selectedSegment[0].order].score = val;
-          createChart(this.$.wheelContainer, this.lifepreference, this.$.selectedCat);
+          this.createChart(this.$.wheelContainer, this.lifepreference, this.updateSelectedSegment);
         }
-        
       },
-      updateSelectedSegment: function(segmentId) {
-        alert(segmentId);
+      updateSelectedSegment: function(segmentId, context) {
+        //var caller = context || this;
+        this.currentSegmentId = segmentId;
+        this.$.slider.focus();
+        //this.currentSegmentLabel = caller.getCurrentSegmentLabel(this.currentSegmentId, this.lifepreference);
+      },
+      createChart: function (element, input, callbackFn) {
+        var centroidfn = this.centroid;
+        var context = this;
+        var callMe = this.updateSelectedSegment;
+        if(element){
+            element.innerHTML = '';
+            var margin = {top: 10, right: 15, bottom: 10, left: 15};
+
+            var width = 300,
+                height = 350,
+                radius = (Math.min(width, height) / 2),
+                innerRadius = 0;
+
+            var pie = d3.layout.pie()
+                .sort(null)
+                .value(function(d) { return d.width; });
+
+            var arc = d3.svg.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(function (d) { 
+                return (radius - innerRadius) * (d.data.score / 10.0) + innerRadius; 
+                });
+
+            var outlineArc = d3.svg.arc()
+                    .innerRadius(innerRadius)
+                    .outerRadius(radius);
+
+            var svg = d3.select(element).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+
+
+                var data = input;
+                data.forEach(function(d) {
+                  d.id     =  d.id;
+                  d.order  = +d.order;
+                  d.color  =  d.color;
+                  d.weight = +d.weight;
+                  d.score  = +d.score;
+                  d.width  = +d.weight;
+                  d.label  =  d.label;
+                });
+                
+                var outerGroup = svg.selectAll(".solidArc")
+                    .data(pie(data))
+                    .enter()
+                    .append("g")
+                
+                outerGroup
+                    .append("path")
+                    .attr("fill", function(d) { return d.data.color; })
+                    .attr("class", "solidArc")
+                    .attr("stroke", "gray")
+                    .attr("d", arc)
+                    .on('click',function(d){
+                      callMe.call(context, d.data.id);  
+                    });
+                    
+                outerGroup
+                    .append("text")
+                    .attr("transform", function(d) {
+                      return "translate(" + centroidfn(60, width, d.startAngle, d.endAngle) + ")";
+                    })
+                    .attr("text-anchor", "middle")
+                    .text(function(d) { return d.data.label })
+                    .on('click',function(d){
+                      callMe.call(context,d.data.id); 
+                    });
+
+                var outerPath = svg.selectAll(".outlineArc")
+                    .data(pie(data))
+                    .enter().append("path")
+                    .attr("fill", "none")
+                    .attr("stroke", "gray")
+                    .attr("class", "outlineArc")
+                    .attr("d", outlineArc);  
+
+            
+        }
+      },
+      centroid: function(innerR, outerR, startAngle, endAngle){
+        var r = ((innerR + outerR) / 2 - 45), a = (startAngle + endAngle) / 2 - (Math.PI / 2);
+        return [ Math.cos(a) * r, Math.sin(a) * r ];
       }
 
-    });
+  });
   </script>
 </dom-module>

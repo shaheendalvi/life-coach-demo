@@ -14,7 +14,8 @@ module.exports = {
   staticFileGlobs: [
     '/index.html',
     '/manifest.json',
-    '/bower_components/webcomponentsjs/webcomponents-lite.min.js',
+    '/bower_components/webcomponentsjs/webcomponents.js',
   ],
   navigateFallback: 'index.html',
+  navigateFallbackWhitelist: [/^(?!\/__)/]
 };

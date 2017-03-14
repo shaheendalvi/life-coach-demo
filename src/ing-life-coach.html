@@ -24,14 +24,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="ing-big-letter-tooltip-desc.html">
-<link rel="import" href="ing-achievable-goal-item.html">
+<!--<link rel="import" href="ing-big-letter-tooltip-desc.html">-->
+<!--<link rel="import" href="ing-achievable-goal-item.html">-->
 <link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/highcharts-chart/highcharts-chart.html">
 <link rel="import" href="my-icons.html">
-
+<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 <dom-module id="ing-life-coach">
   <template>
     <style>
@@ -133,24 +133,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         wheelOfLifePreference: {
           type: Object,
           value: null
-        },
-		chartData: {
-          type: Object,
-          value: null
         }
       },
 
       ready: function() {
-        this.wheelOfLifePreference = [ {id:'RM', order:1, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
-          {id:'HL', order:2, score:5, weight:0.5, color:'#525199', label:'Health'},
-          {id:'FN', order:3, score:5, weight:0.5, color:'#D0D93C', label:'Finance'},
-          {id:'CR', order:4, score:5, weight:0.5, color:'#60A6DA', label:'Career'},
-          {id:'PG', order:5, score:5, weight:0.5, color:'#FF6200', label:'Personal Growth'},
-          {id:'HM', order:6, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
-          {id:'FF', order:7, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
-          {id:'FH', order:8, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
-		  
-		  //this.chartData = [[0,0],[1,7],[2,1],[3,6],[4,8],[5,6]];
+        this.wheelOfLifePreference = [  {id:'FF', order:0, score:5, weight:0.5, color:'#000066', label:'Family & Friends'},
+          {id:'HL', order:1, score:5, weight:0.5, color:'#525199', label:'Health'},
+          {id:'FN', order:2, score:5, weight:0.5, color:'#D0D93C', label:'Finance'},
+          {id:'CR', order:3, score:5, weight:0.5, color:'#60A6DA', label:'Career'},
+          {id:'PG', order:4, score:5, weight:0.5, color:'#FF6200', label:'Personal Growth'},
+          {id:'HM', order:5, score:5, weight:0.5, color:'#D0D93C', label:'Home'},
+          {id:'RM', order:6, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
+          {id:'FH', order:7, score:5, weight:0.5, color:'#FF00BF', label:'Fun & Hobbies'}];
       },
       observers: [
         '_routePageChanged(routeData.page)',
