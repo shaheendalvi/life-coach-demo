@@ -27,8 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="ing-big-letter-tooltip-desc.html">
 <link rel="import" href="ing-achievable-goal-item.html">
 <link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../bower_components/paper-date-picker/paper-date-picker.html">
-<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-icons.html">
 
@@ -137,10 +136,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged: function(page) {
         this.page = page || 'welcome';
-
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
       },
 
        signedInChanged: function(e, data) {
