@@ -26,23 +26,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       SPAN, PAPER-INPUT {
         display: inline-block;
       }
+      vaadin-date-picker {
+        display: inline-block;
+        width: 90px;
+      }
     </style>
 
     <div>
       <span class="item-number">{{item-number}}</span>
-      <paper-input no-label-float style="width: calc(90% - 130px)"></paper-input>
-      <paper-input no-label-float label="__ / __ / __" style="width: 90px;"></paper-input>
-      <paper-button on-tap="openCalendar"><img src="img/calendar-icon.png" alt="Open calendar" width="16"/></paper-button>
-      <!--<paper-date-picker id="picker" date="[[date]]"></paper-date-picker> //-->
+      <paper-input no-label-f1loat label="Task description" style="width: calc(90% - 130px)"></paper-input>
+      <vaadin-date-picker label="Task date">
+      </vaadin-date-picker>
     </div>
   </template>
 
   <script>
     Polymer({
       is: 'ing-achievable-goal-item',
+      properties: {
+        hide: {
+          type: Boolean,
+          value: true
+        }
+      },
       openCalendar: function (e) {
-        //this.setDialog(true);
-        //this.$.datepicker.open();
+        this.hide = false;
       }
     });
   </script>
