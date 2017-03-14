@@ -79,22 +79,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-drawer-layout id="layout" fullbleed>
       <!-- Drawer content -->
-      <app-drawer id="drawer">
+      <!--app-drawer id="drawer">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="login" href="/login">Login</a>
+          <a name="welcome" href="/welcome">Welcome</a>
           <a name="home" href="/home">Home</a>
           <a name="smart-goals" href="/smart-goals">Smart Goals</a>
           <a name="wheeloflife" href="/wheeloflife">Wheel of Life</a>
         </iron-selector>
-      </app-drawer>
+      </app-drawer-->
 
       <!-- Main content -->
       <app-header-layout has-scrolling-region>
 
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <!--paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button-->
             <div main-title>ING Life Coach</div>
           </app-toolbar>
         </app-header>
@@ -104,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <ing-login name="login"></ing-login>
+          <ing-welcome name="welcome"></ing-welcome>
           <ing-home name="home"></ing-home>
           <ing-smart-goals name="smart-goals"></ing-smart-goals>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
@@ -136,7 +136,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'login';
+        this.page = page || 'welcome';
 
         if (!this.$.drawer.persistent) {
           this.$.drawer.close();
