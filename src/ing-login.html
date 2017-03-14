@@ -1,6 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <dom-module id="ing-login">
@@ -44,8 +43,8 @@
 
       },
       onLogin: function(e) {
-        this.fire('iron-signal', {name: 'signin-changed', data: {loggedIn:false}});
-        this.fire('iron-signal', {name: 'navigate', data: {viewName: 'home'}});
+        window.history.pushState({}, null, '/home');
+        window.dispatchEvent(new CustomEvent('location-changed'));
       }
     });
   </script>
