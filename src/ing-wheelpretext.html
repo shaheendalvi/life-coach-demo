@@ -3,7 +3,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-<dom-module id="ing-welcome">
+<dom-module id="ing-wheelpretext">
   <template>
     <style include="shared-styles">
       :host {
@@ -12,36 +12,36 @@
          @apply(--layout-horizontal);
       }
 	  .container {
-		width: 100%;
-		text-align: center;
-		background: #fff;
-		min-height: 400px;
+      width: 100%;
+      text-align: center;
+      background: #fff;
+      min-height: 400px;
 	  }
-	  
-      .lifecoach-image {
-        width: 250px;
-        height:250px;
-      }
-      .button-width{
+	  .header {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ff6200;
+      margin-top: 15px;
+	  }
+    .button-width{
         width: 200px;
-      }
-      
+    }
     </style>
 
     <div class="container">
-	  <div class="header"> Hi! Welcome to Life Coach </div>
-      <div > 
-        <iron-image class="lifecoach-image" src="../images/logo.jpg" sizing="contain"></iron-image>
+      <span class="header"> Wheel of life</span>
+	    <div>
+          Balance is personal and unique to each individual - what may be satisfying or balanced for some may be stressful or boring for others.
+          This exercise raises a client's awareness and allows the client to plan a life that is more satisfying and closer to their definition of balance. 
+          It also helps clarify priorities for goal-setting.
       </div>
-      
-	  <div>Life Coach will help you identify, plan and achieve any goals you have</div>
-	  <paper-button  raised class="login-button button-width"> <a href="/wheelpretext" class="link">OK, Let's go</a></paper-button>
+	    <paper-button  raised class="login-button button-width"> <a href="/wheeloflife" class="link">Let's start</a></paper-button>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'ing-welcome',
+      is: 'ing-wheelpretext',
       properties: {
 
       },

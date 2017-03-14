@@ -6,7 +6,8 @@
     "src/ing-welcome.html",
     "src/ing-smart-goals.html",
     "src/ing-smart-goals-setting.html",
-    "src/ing-wheeloflife.html"
+    "src/ing-wheeloflife.html",
+    "src/ing-wheelpretext.html"
   ],
   "sourceGlobs": [
     "src/**/*",
