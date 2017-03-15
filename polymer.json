@@ -10,7 +10,8 @@
     "src/ing-wheelpretext.html",
     "src/ing-achievable-goal-item.html",
     "src/ing-big-letter-tooltip-desc.html",
-    "src/ing-login.html"
+    "src/ing-login.html",
+    "src/ing-goal-tracking-specific.html"
   ],
   "sourceGlobs": [
     "src/**/*",
