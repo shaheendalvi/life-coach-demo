@@ -2,7 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/ing-life-coach.html",
   "fragments": [
-    "src/ing-home.html",
+    "src/ing-pick-coach.html",
     "src/ing-welcome.html",
     "src/ing-smart-goals.html",
     "src/ing-smart-goals-setting.html",
@@ -11,7 +11,10 @@
     "src/ing-achievable-goal-item.html",
     "src/ing-big-letter-tooltip-desc.html",
     "src/ing-login.html",
-    "src/ing-goal-tracking-specific.html"
+    "src/ing-goal-tracking-specific.html",
+    "src/ing-share-with-friends.html",
+    "src/ing-share-with-friends-preview.html",
+    "src/ing-admin.html"
   ],
   "sourceGlobs": [
     "src/**/*",

@@ -1,0 +1,78 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="ing-share-with-friends-preview">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+         @apply(--layout-horizontal);
+      }
+			.container {
+				width: 100%;
+				text-align: center;
+				background: #fff;
+			}
+      .share-me-image {
+        width: 25px;
+        height: 25px;
+      }
+      .button-width {
+        width: 125px;
+      }
+      .goal-text {
+        margin-top: 15px;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      .button-panel {
+        margin-top: 30px;
+
+      }
+      .salutation-text {
+        margin-top: 30px;
+        margin-bottom: 10px;
+      }
+      .inner-text {
+        padding-left: 20px;
+      }
+      
+      .text-left {
+        text-align: left;
+      }
+      .pad-10 {
+        padding-left: 10px;
+      }
+    </style>
+    <div class="container">
+      <div class="invitation-text-container">
+          <div class="salutation-text text-left">
+             Hey Mate,
+          </div>
+          <div class="pregoal-text pad-10">Excited to share with you my new goal.</div>
+          <div class="goal-text">Loose 5 Kgs in 3 months</div>
+          <div class="postgoal-text text-left">Isn't it Exciting? Do you want to explore more? Join me on <a href="https://lifecoach-de0bb.firebaseapp.com">ING Life coach</a>.</div>
+      </div>
+      <div class="button-panel">
+        <paper-button  raised class="login-button button-width"> <a href="#" class="link">Post it</a></paper-button>
+        <paper-button  raised class="login-button button-width"> <a href="/goal-tracking" class="link">Discard</a></paper-button>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-share-with-friends-preview',
+      properties: {
+	    },
+	  	ready: function() {
+		
+			}
+    });
+  </script>
+</dom-module>

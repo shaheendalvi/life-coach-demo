@@ -2,8 +2,8 @@
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="ing-share-with-friends-preview.html">
 
 
 <dom-module id="ing-share-with-friends">
@@ -18,11 +18,24 @@
 				width: 100%;
 				text-align: center;
 				background: #fff;
-			
+			  @apply(--layout-horizontal);
 			}
+      .share-me-image {
+        width: 25px;
+        height: 25px;
+      }
+      .image-container {
+        margin-right: 5px;
+      }
+      .share-text {
+        margin-right: 15px;
+      }
     </style>
     <div class="container">
-			share with friends
+      <div class="share-text">Share my goals with friends</div>   
+			<div class="image-container"><a href="/share-with-friends-preview"><img class="share-me-image" src="/src/img/32_facebook.png" alt="share on facebook"/></a></div>
+      <div class="image-container"><a href="/share-with-friends-preview"><img class="share-me-image" src="/src/img/32_Linkdin.png" alt="share on google+"/></a></div>
+      <div class="image-container"><a href="/share-with-friends-preview"><img class="share-me-image" src="/src/img/32_Twitter.png" alt="share on twitter"/></a></div>
     </div>
   </template>
 
