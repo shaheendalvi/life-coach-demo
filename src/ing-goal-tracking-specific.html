@@ -4,8 +4,9 @@
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-
-
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<script src ="common.js"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 <dom-module id="ing-goal-tracking-specific">
   <template>
     <style include="shared-styles">
@@ -20,9 +21,44 @@
 				background: #fff;
 			
 			}
+			.goal-container {
+				background: #FDFDF0;
+				width: 100%;
+				border-bottom: 1px dotted #ccc;
+				text-align: left;
+				padding: 15px 20px;
+				margin-left: 20px;
+				float:left;
+				color: #333;
+				font-weight: bold;
+			}
+			.task-detail {
+				width:100%;background:#fff;color:#000;padding:10px;
+			}
+			.task-header {
+				font-size:12px;
+			}
     </style>
     <div class="container">
-			<paper-button  raised class="login-button button-width"><a href="/share-with-friends" class="link">share goals with friend</a></paper-button>
+			<!--paper-button  raised class="login-button button-width"><a href="/share-with-friends" class="link">share goals with friend</a></paper-button-->
+		<div>
+			<highcharts-chart type="spline"  height-responsive x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}" highchartOptions="{height:50px;}" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..." tooltipOptions={{tooltipOptions}}></highcharts-chart>
+		</div>
+		
+		<div class="header" style="float:left;padding-bottom:10px;"> {{goalData.specific}} </div>
+		<template is="dom-repeat" items="{{goalData.tasks}}">
+		  <div class="goal-container">
+			<span on-tap="collapseToggle"><+></span>
+			<span style="width:100%;">{{item.desc}}</span>
+			<iron-collapse opened="{{item.state}}">
+			  <div class="task-detail">
+				<div><span class="task-header">Description:</span> <strong>{{item.desc}} </strong></div>
+				<div><span class="task-header">Notify Date:</span> <strong> {{item.date}}</strong></div>
+				<div><span class="task-header">Completed Date:</span> <strong> {{item.completionDate}}</strong></div>
+			  </div>
+			</iron-collapse>
+		  </div>
+		</template>
     </div>
   </template>
 
@@ -30,10 +66,99 @@
     Polymer({
       is: 'ing-goal-tracking-specific',
       properties: {
-	    },
-	  	ready: function() {
+		goalData: {
+          type: Object
+        },
+		chartData: {
+          type: Object
+        },
+		xAxis: {
+          type: Object
+        },
+		yAxis: {
+          type: Object
+        },
+		chartOptions: {
+          type: Object
+        },
+		legendOptions: {
+			type: Object
+		},
+		colors: {
+			type: Object
+		},
+		tooltipOptions: {
+			type: Object
+		}
+	},
+	'collapseToggle': function(event, detail, sender) {
+		event.currentTarget.parentElement.querySelector('iron-collapse').toggle();
+	},
+	ready: function() {
+		var apiData = {"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"id":1,"desc":"Go on date","date":"2017-03-15","completionDate":"2017-04-15"},{"id":2,"desc":"Go for Movie","date":"2017-04-17","completionDate":""},{"id":3,"desc":"Baby Sit ","date":"2017-05-28","completionDate":"2017-04-10"}],"realistic":"Realistic 1","timebased":"2017-06-15","startDate":"2017-03-10"};
+		var goalStartDate = apiData.startDate , goalEndDate = apiData.timebased;
 		
+		var completionDatesArr =[], completedTasks = [],  totalTasks = apiData.tasks.length , isStart = 1;
+		
+		//get tasks with completion date
+		$.each(apiData.tasks, function (key, task) {
+			if(task.completionDate != '') {
+				completedTasks.push(task);
+				if( Date.parse(task.completionDate) == Date.parse(goalStartDate) ) {
+					isStart =  0;
+				}
 			}
-    });
+		});
+		//sort by completion date
+		if(completedTasks.length > 0 ) {
+			completedTasks.sort(function(a,b) { 
+				return new Date(a.completionDate).getTime() - new Date(b.completionDate).getTime() 
+			});
+			if(isStart == 1) {
+				chartData = [[Date.parse(goalStartDate), 0]];
+			}else {
+				chartData = [];
+			}
+			var perc = 0 ;
+			for (var i = 0; i < completedTasks.length; i++) { 
+				perc = perc + (1/totalTasks) * 100;
+				var series = [Date.parse(completedTasks[i].completionDate), parseFloat(perc.toFixed(2))];
+				//series['x'] = Date.parse(completedTasks[i].completionDate);
+				//series['y'] =perc.toFixed(2)
+				//series.push(Date.parse(completedTasks[i].completionDate));
+				//series.push(perc.toFixed(2));
+				chartData.push(series);
+			}
+			
+		}
+		
+		console.log("chartData..",chartData);
+		
+		this.goalData = apiData;
+		
+		this.xAxis = {
+			type: 'datetime',
+			dateTimeLabelFormats: { // don't display the dummy year
+				month: '%e. %b',
+				year: '%b'
+			},
+			title: {
+				text: 'Date'
+			},
+			min:  Date.parse(goalStartDate), 
+			max: Date.parse(goalEndDate)
+		};
+		
+		this.yAxis = {
+			min: 0,
+			max: 100
+		};
+		
+	   this.chartData = chartData ;// [[ Date.parse('2017-03-15'),0],[ Date.parse('2017-04-17'),20],[ Date.parse('2017-05-28'),60]];
+	   //this.chartData = [{x:Date.UTC(2017,3, 15),y:0, name: 'test1'},{x:Date.UTC(2017,4, 17),y:20, name: 'test2'},{x:Date.UTC(2017,5, 28),y:60, name: 'test3'}];
+		
+	},
+	
+});
   </script>
 </dom-module>
