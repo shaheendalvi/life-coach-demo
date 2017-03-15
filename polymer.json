@@ -2,7 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/ing-life-coach.html",
   "fragments": [
-    "src/ing-home.html",
+    "src/pick-coach.html",
     "src/ing-welcome.html",
     "src/ing-smart-goals.html",
     "src/ing-smart-goals-setting.html",

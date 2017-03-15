@@ -91,6 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a name="goal-tracking-specific" href="/goal-tracking-specific">Goal Tracking Specific </a>
           <a name="share-with-friends" href="/share-with-friends">Share with friends</a>
           <a name="share-with-friends-preview" href="/share-with-friends-preview">Share with friends Preview</a>
+          <a name="pick-coach" href="/pick-coach">Pick a Coach</a>
         </iron-selector>
       </app-drawer>
 
@@ -112,13 +113,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-goal-tracking-specific name="goal-tracking-specific"></ing-goal-tracking-specific>
           <ing-share-with-friends name="share-with-friends"></ing-share-with-friends>
           <ing-share-with-friends-preview name="share-with-friends-preview"></ing-share-with-friends-preview>
-          <!--ing-home name="home"></ing-home-->
+          <ing-pick-coach name="pick-coach"></ing-pick-coach>
           <ing-smart-goals name="smart-goals"></ing-smart-goals>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
 		      <ing-goal-tracking name="goal-tracking"></goal-tracking>
-          
           <my-view404 name="view404"></my-view404>
-          
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -164,8 +163,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
        signedInChanged: function(e, data) {
           this.signedIn = (data && data.loggedIn);
-          //this.$.drawer.hidden = !this.signedIn;
-          //this.$.layout.resetLayout();
       },
 
       navigateToView: function(e, data) {
@@ -175,7 +172,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _pageChanged: function(page) {
-        // Load page import on demand. Show 404 page if fails
         var resolvedPageUrl = this.resolveUrl('ing-' + page + '.html');
         this.importHref(resolvedPageUrl, null, this._showPage404, true);
       },

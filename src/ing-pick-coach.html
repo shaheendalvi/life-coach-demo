@@ -9,9 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="ing-home">
+<dom-module id="ing-pick-coach">
   <template>
     <style include="shared-styles">
       :host {
@@ -19,8 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
       .coach-info {
-        border: 1px solid black;
-        border-radius: 5px;
         width: 300px;
         height: 400px;
         @apply(--layout-vertical);
@@ -28,12 +28,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
       .coach-profile-pic {
           width: 280px;
-          border: 1px solid;
           height: 150px;
-          margin-top: 10px;
+      }
+      .coach-profile-pic {
+        width: 250px;
+        height:250px;
       }
       .coach-profile {
-
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .coach-intro {
+        
       }
     </style>
 
@@ -41,18 +47,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <h3>Meet our coaches</h3>
         <div class="coach-info">
           <div class="coach-profile-pic">
-            coach profile pic
+            <iron-image class="coach-profile-pic" src="/src/img/zen-master.png" sizing="contain"></iron-image>
           </div>
           <div class="coach-profile">
-            coach info
+            ZEN MASTER
           </div> 
+          <div>
+            <ul>
+              <li><span>Helps giude you with patient remiders.</span></li>
+              <li><span>Can be blunt at times but fair.</span></li>
+            </ul>
+          </div>
         </div>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'ing-home',
+      is: 'ing-pick-coach',
     });
   </script>
 </dom-module>
