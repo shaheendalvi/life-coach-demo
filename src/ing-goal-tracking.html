@@ -3,7 +3,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-<script src="../node_modules/lodash/lodash.min.js"></script>
+
 
 <dom-module id="ing-goal-tracking">
   <template>
@@ -76,23 +76,26 @@
 		}
       },
 	  ready: function() {
-		this.goalsData = [{"category":"Romance","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Go on date","date":"2017-03-15","completed":1},{"desc":"Go for Movie","date":"2017-04-17","completed":0},{"desc":"Baby Sit ","date":"2017-03-31","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
-{"category":"Health","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"10000 steps first day","date":"2017-03-16","completed":0},{"desc":"Run for 2 kms","date":"2017-05-01","completed":0},{"desc":"Eat Vegetarian","date":"2017-04-01","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
-{"category":"Finance","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Lunch from home","date":"2017-03-15","completed":0},{"desc":"No shopping","date":"2017-03-17","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"}];
+		this.goalsData = [{"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Go on date","date":"2017-03-15","completed":1},{"desc":"Go for Movie","date":"2017-04-17","completed":0},{"desc":"Baby Sit ","date":"2017-03-31","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
+{"category":"Health","id":"HL","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"10000 steps first day","date":"2017-03-16","completed":0},{"desc":"Run for 2 kms","date":"2017-05-01","completed":0},{"desc":"Eat Vegetarian","date":"2017-04-01","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
+{"category":"Finance","id":"FN","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Lunch from home","date":"2017-03-15","completed":0},{"desc":"No shopping","date":"2017-03-17","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"}];
 
 		var categories = ['1 Jan 17', '2 Feb 17', '4 Mar 17', '15 Apr 17', '20 May 17', ' 5 Jun 17'];
 		var jdata = {
 			"Goal 1": {
 				"y": [10,20,30,40,60,90],
-				"name": "Goal 1"
+				"name": "Goal 1",
+				"catId": "RM"
 			},
 			"Goal 2": {
 				"y": [5,10,40,60,70,100],
-				"name": "Goal 2"
+				"name": "Goal 2",
+				"catId": "RM"
 			},
 			"Goal 3": {
 				"y": [10,15,30,40,70,100],
-				"name": "Goal 3"
+				"name": "Goal 3",
+				"catId": "RM"
 			}
 		};
 		this.xAxis = {categories: categories};
@@ -100,7 +103,7 @@
 		$.each(jdata, function (key, data) {
 			var series = {
 				name: key,
-				data: []
+				data: [],
 			};
 
 			$.each(data.y, function (index, value) {
