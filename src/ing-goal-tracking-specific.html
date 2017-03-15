@@ -1,0 +1,39 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="ing-goal-tracking-specific">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+         @apply(--layout-horizontal);
+      }
+			.container {
+				width: 100%;
+				text-align: center;
+				background: #fff;
+			
+			}
+    </style>
+    <div class="container">
+			<paper-button  raised class="login-button button-width"><a href="/share-with-friends" class="link">share goals with friend</a></paper-button>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-goal-tracking-specific',
+      properties: {
+	    },
+	  	ready: function() {
+		
+			}
+    });
+  </script>
+</dom-module>
