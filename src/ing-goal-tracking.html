@@ -3,7 +3,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
-
+<script src ="common.js"></script>
 
 <dom-module id="ing-goal-tracking">
   <template>
@@ -24,7 +24,7 @@
 	  }
 	  .goal-list {
 		height: 40px;
-		background: #4285F4;
+		background: #fff;
 		width: 100%;
 		border-bottom: 1px solid #ccc;
 		text-align: left;
@@ -37,18 +37,31 @@
 		float:right;
 		padding-right: 20px;
 	  }
-	  
+	 .ico:after{
+		content: '';
+		display: block;
+		height: 40px;  /*height of icon */
+		width: 40px;  /*width of icon */
+		position: relative;
+		  /*where to replace the icon */
+		top: 12px;
+		  /*background */
+		background: #fff url(img/RM.png) no-repeat 0px 0px;
+	}
+	
     </style>
 
     <div class="container">
-		
+		<div class="header">Goals Overview</div>
 		<div class="chart">
-			<highcharts-chart type="spline"  height-responsive x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}" highchartOptions="{height:50px;}" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..."></highcharts-chart>
+			<!--highcharts-chart type="spline"  height-responsive x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}" highchartOptions="{height:50px;}" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..."></highcharts-chart-->
 		</div>
+		
 		<template is="dom-repeat" items="{{goalsData}}">
-			<div class="goal-list">{{item.specific}} <span class="right-arrow"> ></span></div>
+		<iron-image  src="img/{{item.id}}.png" sizing="contain"></iron-image>
+			<a href="/goal-tracking-specific" class="link" style="display:block;width:100%"><span ><span><div class="goal-list" style="color:{{item.color}}">{{item.specific}} <span class="right-arrow"> ></span></div></a>
 		</template>
-		<div class="goal-list" style="text-align:center;">+</div>
+		<paper-button  raised class="login-button" style="width:100%"> <a href="/smart-goals-setting" class="link">+</a></paper-button>
     </div>
   </template>
 
@@ -73,14 +86,31 @@
         },
 		legendOptions: {
 			type: Object
+		},
+		colors: {
+			type: Object
 		}
       },
 	  ready: function() {
-		this.goalsData = [{"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Go on date","date":"2017-03-15","completed":1},{"desc":"Go for Movie","date":"2017-04-17","completed":0},{"desc":"Baby Sit ","date":"2017-03-31","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
-{"category":"Health","id":"HL","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"10000 steps first day","date":"2017-03-16","completed":0},{"desc":"Run for 2 kms","date":"2017-05-01","completed":0},{"desc":"Eat Vegetarian","date":"2017-04-01","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
-{"category":"Finance","id":"FN","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Lunch from home","date":"2017-03-15","completed":0},{"desc":"No shopping","date":"2017-03-17","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"}];
+		var apiData = [{"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Go on date","date":"2017-03-15","completed":1},{"desc":"Go for Movie","date":"2017-04-17","completed":0},{"desc":"Baby Sit ","date":"2017-03-31","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
+{"category":"Health","id":"HL","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"10000 steps first day","date":"2017-03-16","completed":0},{"desc":"Run for 2 kms","date":"2017-05-01","completed":0},{"desc":"Eat Vegetarian","date":"2017-04-01","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-12"},
+{"category":"Finance","id":"FN","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Lunch from home","date":"2017-03-15","completed":0},{"desc":"No shopping","date":"2017-03-17","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-09"}];
 
 		var categories = ['1 Jan 17', '2 Feb 17', '4 Mar 17', '15 Apr 17', '20 May 17', ' 5 Jun 17'];
+		this.colors = colors;
+		
+		var xAxisStartDate =[], xAxisStopDate = [], goalData = [];
+		$.each(apiData, function (key, goal) {
+			xAxisStartDate.push(goal.startDate);
+			$.each(goal.tasks, function (key1, task) {
+				xAxisStopDate.push(task.date);
+			});
+			goal['color']= colors[goal.id]; 	
+			goalData.push(goal);
+		});
+		console.log("xAxisStartDate...", xAxisStartDate);
+		console.log("xAxisStopDate...", xAxisStopDate);
+		this.goalsData = goalData;
 		var jdata = {
 			"Goal 1": {
 				"y": [10,20,30,40,60,90],
@@ -90,12 +120,12 @@
 			"Goal 2": {
 				"y": [5,10,40,60,70,100],
 				"name": "Goal 2",
-				"catId": "RM"
+				"catId": "HL"
 			},
 			"Goal 3": {
 				"y": [10,15,30,40,70,100],
 				"name": "Goal 3",
-				"catId": "RM"
+				"catId": "FN"
 			}
 		};
 		this.xAxis = {categories: categories};
@@ -104,8 +134,8 @@
 			var series = {
 				name: key,
 				data: [],
+				color: colors[data.catId]
 			};
-
 			$.each(data.y, function (index, value) {
 			
 				series.data.push([categories[index] , value]);
@@ -119,7 +149,10 @@
 			seriesArr.push(series);
 		});
 		
-		
+		this.yAxis = {
+			min: 0,
+			max: 100
+		};
 		/*this.yAxis = {
             title: {
                 text: 'Rate',
