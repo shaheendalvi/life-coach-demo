@@ -31,6 +31,7 @@
       wheel-container {
         margin-left: 11px;
       }
+      text {font-size: 13px;}
     </style>
 
     <div class="container">
@@ -154,7 +155,7 @@
                 var outerGroup = svg.selectAll(".solidArc")
                     .data(pie(data))
                     .enter()
-                    .append("g")
+                    .append("g");
                 
                 outerGroup
                     .append("path")
@@ -176,6 +177,14 @@
                     .on('click',function(d){
                       callMe.call(context,d.data.id); 
                     });
+
+                // outerGroup
+                //     .append("image")
+                //     .attr("xlink:href","/src/img/tooltip.png")
+                //     .attr("x","0")
+                //     .attr("y","0")
+                //     .attr("width","20")
+                //     .attr("height","20");
 
                 var outerPath = svg.selectAll(".outlineArc")
                     .data(pie(data))
