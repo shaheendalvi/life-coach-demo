@@ -68,6 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <iron-request id="notifications"></iron-request>
+    <iron-request id="deletes"></iron-request>
     <iron-signals 
         on-iron-signal-signin-changed="signedInChanged"
         on-iron-signal-navigate="navigateToView"></iron-signals>
@@ -159,7 +160,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {id:'RM', order:6, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
           {id:'FH', order:7, score:5, weight:0.5, color:'#D0D93C', label:'Fun & Hobbies'}];
         
-        //this.checkNotifications();
+        setInterval(function () { this.checkNotifications(); }.bind(this), 5000);
       },
       observers: [
         '_routePageChanged(routeData.page)',
@@ -189,6 +190,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       
       checkNotifications: function() {
+        var notify = function (id) {
+          console.log('*** Not: ', id);
+           this.$.deletes.send({url: 'https://savegoals.restlet.net/v1/notifications/' + id, 
+              headers: {
+                "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
+                "content-type": "application/json",
+                "accept": "application/json"
+              },
+              method: 'DELETE',
+              body: {}
+            });
+        }.bind(this);
+        
         this.$.notifications.send({url: 'https://savegoals.restlet.net/v1/notifications/', 
           headers: {
             "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
@@ -200,15 +214,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           console.log('*** ', obj.response);
           JSON.parse(obj.response).forEach(function (notification) {
             window.displayNotification(notification.title, notification.message, notification.icon);
-            this.$.notifications.send({url: 'https://savegoals.restlet.net/v1/notifications/' + notification.id, 
-              headers: {
-                "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
-                "content-type": "application/json",
-                "accept": "application/json"
-              },
-              method: 'DELETE',
-              body: {}
-            });
+            console.log('*** Id: ', notification.id);
+            setTimeout(function () { notify(notification.id); }, 1000);
           }.bind(this));
         });
         // window.displayNotification('Title 1', 'This is a message', '');
