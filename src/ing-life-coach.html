@@ -30,6 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/vaadin-date-picker/vaadin-date-picker.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="my-icons.html">
+<script src="notifications.js"></script>
 
 <dom-module id="ing-life-coach">
   <template>
@@ -172,5 +173,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.page = 'view404';
       },
     });
+    
+    setTimeout(function () {
+      window.displayNotification('Title 1', 'This is a message', '');
+    }, 15000);
   </script>
 </dom-module>
