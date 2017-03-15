@@ -13,7 +13,8 @@
     "src/ing-login.html",
     "src/ing-goal-tracking-specific.html",
     "src/ing-share-with-friends.html",
-    "src/ing-share-with-friends-preview.html"
+    "src/ing-share-with-friends-preview.html",
+    "src/ing-admin.html"
   ],
   "sourceGlobs": [
     "src/**/*",

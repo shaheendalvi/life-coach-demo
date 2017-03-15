@@ -1,0 +1,51 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="ing-life-admin">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+    </style>
+
+    <div>
+        <h3>Life Coach Admin</h3>
+        <paper-button on-tap="healthyeating">Near McDonalds</paper-button>
+        <paper-button on-tap="goodrun">Excersising</paper-button>
+        <paper-button on-tap="checkspending">Near Zara</paper-button>
+        <iron-request id="xhr"></iron-request>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ing-life-admin',
+      healthyeating: function () {
+        this.$.xhr.send({url: 'https://savegoals.restlet.net/v1/notifications/', 
+          headers: {
+            "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
+            "content-type": "application/json",
+            "accept": "application/json"
+          }, 
+          method: "POST",
+          body: {
+            "message": "Remember your gol to lose 5kgs.",
+            title: "Health Goal",
+            icon: ""
+          }});
+      }
+    });
+  </script>
+</dom-module>
