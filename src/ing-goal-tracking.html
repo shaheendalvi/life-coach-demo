@@ -26,28 +26,28 @@
 		height: 40px;
 		background: #fff;
 		width: 100%;
-		border-bottom: 1px solid #ccc;
 		text-align: left;
 		padding: 15px 20px 0 20px;
+		margin-left: 20px;
 		float:left;
 		color: #fff;
+		border-bottom : 1px solid #ccc;
 	  }
 	  .right-arrow {
 		align:right;
 		float:right;
 		padding-right: 20px;
 	  }
-	 .ico:after{
-		content: '';
+	
+	.bg-icon{
+		padding-left: 28px;
 		display: block;
-		height: 40px;  /*height of icon */
-		width: 40px;  /*width of icon */
-		position: relative;
-		  /*where to replace the icon */
-		top: 12px;
-		  /*background */
-		background: #fff url(img/RM.png) no-repeat 0px 0px;
+		height: 30px;
+		min-width: 20px;
+		float: left;
+		content:"";
 	}
+	
 	
     </style>
 
@@ -58,8 +58,12 @@
 		</div>
 		
 		<template is="dom-repeat" items="{{goalsData}}">
-		<iron-image  src="img/{{item.id}}.png" sizing="contain"></iron-image>
-			<a href="/goal-tracking-specific" class="link" style="display:block;width:100%"><span ><span><div class="goal-list" style="color:{{item.color}}">{{item.specific}} <span class="right-arrow"> ></span></div></a>
+			<div class="goal-list">
+				<span style="background: #fff url(src/img/{{item.id}}.png) no-repeat 0 0;" class="bg-icon"></span>
+				<a href="/goal-tracking-specific" class="link" style="display:block;width:100%;">
+					<div  style="color:{{item.color}}">{{item.specific}}<span class="right-arrow"> ></span></div>
+				</a>
+			</div>
 		</template>
 		<paper-button  raised class="login-button" style="width:100%"> <a href="/smart-goals-setting" class="link">+</a></paper-button>
     </div>
