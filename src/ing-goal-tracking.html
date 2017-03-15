@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="ing-share-with-friends.html">
 
 
 <dom-module id="ing-goal-tracking">
@@ -41,7 +42,7 @@
     </style>
 
     <div class="container">
-		
+		<ing-share-with-friends></ing-share-with-friends>
 		<div class="chart">
 			<highcharts-chart type="spline"  height-responsive x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}" highchartOptions="{height:50px;}" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..."></highcharts-chart>
 		</div>
@@ -50,6 +51,7 @@
 		</template>
 		<div class="goal-list" style="text-align:center;">+</div>
     </div>
+		
   </template>
 
   <script>
