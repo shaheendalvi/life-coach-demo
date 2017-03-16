@@ -1,4 +1,4 @@
-(function (window) {
+(function(window) {
   'use strict';
 
   function setupPushes() {
@@ -12,23 +12,24 @@
       return;
     }
 
-    navigator.serviceWorker.ready
-      .then(function (registration) {
-        registration.pushManager.subscribe({
-          userVisibleOnly: true //Always show notification when received
+    if(navigator.serviceWorker) {
+      navigator.serviceWorker.ready
+        .then(function(registration) {
+          registration.pushManager.subscribe({
+            userVisibleOnly: true //Always show notification when received
+          });
         });
-      });
+    }
   }
-  
-  window.displayNotification = function (title, msg, icon) {
-    navigator.serviceWorker.ready
-      .then(function (registration) {
-        registration.showNotification(title, {
-		  body: msg,
-		  icon: icon || '/images/logo.jpg'
-		});
-      });
-  }
+ 
+  window.displayNotification = function(title, msg, icon) {
+    if(navigator.serviceWorker) {
+      navigator.serviceWorker.ready
+      .then(function(registration) {
+        registration.showNotification(title, {body: msg, icon: icon || '/images/logo.jpg'});
+       });
+    }
+  };
 
   setupPushes();
 })(window);
