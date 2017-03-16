@@ -34,18 +34,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'ing-life-admin',
       healthyeating: function () {
+        window.isAdmin = 1;
         this.$.xhr.body = '{ "message": "See menu items at McDonalds that fit into your goal of losing 5kgs.", "title": "Health Goal", "icon": ""}';
         this.$.xhr.generateRequest();
       },
       goodrun: function () {
+        window.isAdmin = 1;
         this.$.xhr.body = '{ "message": "Great run, you are well on your way to your goal of running 15km.", "title": "Health Goal", "icon": ""}';
         this.$.xhr.generateRequest();
       },
       checkspending: function () {
+        window.isAdmin = 1;
         this.$.xhr.body = '{ "message": "Would you like to do a quick review of your finance goals?", "title": "Financial Goal", "icon": ""}';
         this.$.xhr.generateRequest();
       },
       reminder: function () {
+        window.isAdmin = 1;
         this.$.xhr.body = '{ "message": "3 days left to complete your task \\"Buy a drum kit\\"", "title": "Fun &amp; Hobbies", "icon": ""}';
         this.$.xhr.generateRequest();
       },
