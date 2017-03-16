@@ -4,7 +4,6 @@
   "fragments": [
     "src/ing-pick-coach.html",
     "src/ing-welcome.html",
-    "src/ing-smart-goals.html",
     "src/ing-smart-goals-setting.html",
     "src/ing-wheeloflife.html",
     "src/ing-wheelpretext.html",
@@ -23,6 +22,6 @@
   ],
   "includeDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents.js"
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
   ]
 }
