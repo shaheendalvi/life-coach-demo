@@ -22,10 +22,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div>
         <h3>Life Coach Admin</h3>
-        <paper-button on-tap="healthyeating">Near McDonalds</paper-button>
-        <paper-button on-tap="goodrun">Excersising</paper-button>
-        <paper-button on-tap="checkspending">Near Zara</paper-button>
-        <iron-request id="xhr"></iron-request>
+        <paper-button raised on-tap="healthyeating">Near McDonalds</paper-button>
+        <paper-button raised on-tap="goodrun">Excersising</paper-button>
+        <paper-button raised on-tap="checkspending">Near Zara</paper-button>
+        <paper-button raised on-tap="reminder">Task Reminder</paper-button>
+        <iron-ajax id="xhr" url="https://savegoals.restlet.net/v1/notifications/" headers='{"authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==", "content-type": "application/json", "accept": "application/json"}' handle-as="json" method="POST"></iron-ajax>
     </div>
   </template>
 
@@ -33,19 +34,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'ing-life-admin',
       healthyeating: function () {
-        this.$.xhr.send({url: 'https://savegoals.restlet.net/v1/notifications/', 
-          headers: {
-            "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
-            "content-type": "application/json",
-            "accept": "application/json"
-          }, 
-          method: "POST",
-          body: {
-            "message": "Remember your gol to lose 5kgs.",
-            title: "Health Goal",
-            icon: ""
-          }});
-      }
+        this.$.xhr.body = '{ "message": "See menu items at McDonalds that fit into your goal of losing 5kgs.", "title": "Health Goal", "icon": ""}';
+        this.$.xhr.generateRequest();
+      },
+      goodrun: function () {
+        this.$.xhr.body = '{ "message": "Great run, you are well on your way to your goal of running 15km.", "title": "Health Goal", "icon": ""}';
+        this.$.xhr.generateRequest();
+      },
+      checkspending: function () {
+        this.$.xhr.body = '{ "message": "Would you like to do a quick review of your finance goals?", "title": "Financial Goal", "icon": ""}';
+        this.$.xhr.generateRequest();
+      },
+      reminder: function () {
+        this.$.xhr.body = '{ "message": "3 days left to complete your task \\"Buy a drum kit\\"", "title": "Fun &amp; Hobbies", "icon": ""}';
+        this.$.xhr.generateRequest();
+      },
     });
   </script>
 </dom-module>

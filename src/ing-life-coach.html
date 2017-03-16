@@ -69,8 +69,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: bold;
       }
     </style>
-    <iron-request id="notifications"></iron-request>
-    <iron-request id="deletes"></iron-request>
+    <iron-ajax id="notifications" url="https://savegoals.restlet.net/v1/notifications/" headers='{"authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==", "content-type": "application/json", "accept": "application/json"}' handle-as="json" on-response="showNotifications"></iron-ajax>
+    <iron-ajax id="delete" url="https://savegoals.restlet.net/v1/notifications/" headers='{"authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==", "content-type": "application/json", "accept": "application/json"}' handle-as="json" method="DELETE"></iron-ajax>
     <iron-signals 
         on-iron-signal-signin-changed="signedInChanged"
         on-iron-signal-navigate="navigateToView"></iron-signals>
@@ -161,7 +161,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {id:'RM', order:6, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
           {id:'FH', order:7, score:5, weight:0.5, color:'#D0D93C', label:'Fun & Hobbies'}];
         
-        //setInterval(function () { this.checkNotifications(); }.bind(this), 5000);
+        setInterval(function () { this.$.notifications.generateRequest(); }.bind(this), 5000);
+        
+        this.addEventListener('notificationclick', function(event) {
+          console.log('[Service Worker] Notification click Received.');
+          event.notification.close();
+          window.history.pushState({}, null, '/goals-tracking-specific');
+          window.dispatchEvent(new CustomEvent('location-changed'));
+        });
       },
       observers: [
         '_routePageChanged(routeData.page)',
@@ -190,39 +197,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.page = 'view404';
       },
       
-      checkNotifications: function() {
-        var notify = function (id) {
-          console.log('*** Not: ', id);
-           this.$.deletes.send({url: 'https://savegoals.restlet.net/v1/notifications/' + id, 
-              headers: {
-                "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
-                "content-type": "application/json",
-                "accept": "application/json"
-              },
-              method: 'DELETE',
-              body: {}
-            });
-        }.bind(this);
-        
-        this.$.notifications.send({url: 'https://savegoals.restlet.net/v1/notifications/', 
-          headers: {
-            "authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==",
-            "content-type": "application/json",
-            "accept": "application/json"
-          }, 
-          body: {}
-        }).then(function (obj) {
-          console.log('*** ', obj.response);
-          JSON.parse(obj.response).forEach(function (notification) {
-            window.displayNotification(notification.title, notification.message, notification.icon);
-            console.log('*** Id: ', notification.id);
-            setTimeout(function () { notify(notification.id); }, 1000);
-          }.bind(this));
-        });
-        // window.displayNotification('Title 1', 'This is a message', '');
-      }
+      showNotifications: function (res) {
+        res.detail.response.forEach(function (notification) {
+          window.displayNotification(notification.title, notification.message, notification.icon);
+          this.deleteNotification(notification.id);
+        }.bind(this));
+      },
+                                                
+      deleteNotification: function (id) {
+        this.$.delete.url = 'https://savegoals.restlet.net/v1/notifications/' + id;
+        this.$.delete.generateRequest();
+      },
     });
-  
-    window.goals = [];
   </script>
 </dom-module>
