@@ -114,8 +114,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.timebased.value = '';
         this.$.tasklist.innerHTML = '';
         this.numberOfTasks = 0;
-        window.history.pushState({}, null, '/goal-tracking');
-        window.dispatchEvent(new CustomEvent('location-changed'));
+        window.location.href = "http://localhost:8080/goal-tracking";
+        //window.history.pushState({}, null, '/goal-tracking');
+        //window.dispatchEvent(new CustomEvent('location-changed'));
       },
       addTask: function () {
         var taskEl = document.createElement("ing-achievable-goal-item");
