@@ -62,12 +62,12 @@
 		<template is="dom-repeat" items="{{goalsData}}">
 			<div class="goal-list">
 				<span style="background: #fff url(src/img/{{item.id}}.png) no-repeat 0 0;" class="bg-icon"></span>
-				<a href="/goal-tracking-specific" class="link" style="display:block;width:100%;">
+				<a href="/goal-tracking-specific/{{index}}" class="link" style="display:block;width:100%;">
 					<div  style="color:{{item.color}}">{{item.specific}}<span class="right-arrow"> ></span></div>
 				</a>
 			</div>
 		</template>
-		<paper-button  raised class="login-button" style="width:100%"> <a href="/smart-goals-setting" class="link">+</a></paper-button>
+		<paper-button  raised class="login-button" style="width:100%" on-tap="addMoreGoals"> <a href="/smart-goals-setting" class="link" style="width: 100%">+</a></paper-button>
     </div>
 		
   </template>
@@ -99,9 +99,7 @@
 		}
       },
 	  ready: function() {
-		var apiData = [{"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Go on date","date":"2017-03-15","completed":1},{"desc":"Go for Movie","date":"2017-04-17","completed":0},{"desc":"Baby Sit ","date":"2017-03-31","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-10"},
-{"category":"Health","id":"HL","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"10000 steps first day","date":"2017-03-16","completed":0},{"desc":"Run for 2 kms","date":"2017-05-01","completed":0},{"desc":"Eat Vegetarian","date":"2017-04-01","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-12"},
-{"category":"Finance","id":"FN","specific":"Specific 1","measure":"Measure 1","tasks":[{"desc":"Lunch from home","date":"2017-03-15","completed":0},{"desc":"No shopping","date":"2017-03-17","completed":0}],"realistic":"Realistic 1","timebased":"2017-04-01","startDate":"2017-03-09"}];
+		var apiData = JSON.parse(window.localStorage.getItem('goals')).list;
 
 		var categories = ['1 Jan 17', '2 Feb 17', '4 Mar 17', '15 Apr 17', '20 May 17', ' 5 Jun 17'];
 		this.colors = colors;
@@ -175,6 +173,10 @@
         this.chartData = seriesArr;
 		
        
+      },
+      addMoreGoals: function () {
+        window.history.pushState({}, null, '/smart-goals-setting');
+        window.dispatchEvent(new CustomEvent('location-changed'));
       }
     });
   </script>

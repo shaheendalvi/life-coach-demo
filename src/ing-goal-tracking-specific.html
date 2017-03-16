@@ -59,6 +59,7 @@
 			</iron-collapse>
 		  </div>
 		</template>
+        <paper-button raised class="login-button" style="width:100%" on-tap="backToGoals"> <a href="/goal-tracking" class="link" style="width: 100%">Back to goals</a></paper-button>
     </div>
   </template>
 
@@ -94,8 +95,19 @@
 	'collapseToggle': function(event, detail, sender) {
 		event.currentTarget.parentElement.querySelector('iron-collapse').toggle();
 	},
+    backToGoals: function () {
+      window.history.pushState({}, null, '/goal-tracking');
+      window.dispatchEvent(new CustomEvent('location-changed'));
+    },
 	ready: function() {
-		var apiData = {"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"id":1,"desc":"Go on date","date":"2017-03-15","completionDate":"2017-04-15"},{"id":2,"desc":"Go for Movie","date":"2017-04-17","completionDate":""},{"id":3,"desc":"Baby Sit ","date":"2017-05-28","completionDate":"2017-04-10"}],"realistic":"Realistic 1","timebased":"2017-06-15","startDate":"2017-03-10"};
+      var goalNum = window.location.pathname.split('/');
+      if (goalNum) {
+        goalNum = goalNum.pop();
+      } else goalNum = 0;
+      console.log('*** Route: ', goalNum);
+      var goals = JSON.parse(window.localStorage.getItem('goals'));
+      
+		var apiData = goals.list[goalNum];//{"category":"Romance","id":"RM", "specific":"Specific 1","measure":"Measure 1","tasks":[{"id":1,"desc":"Go on date","date":"2017-03-15","completionDate":"2017-04-15"},{"id":2,"desc":"Go for Movie","date":"2017-04-17","completionDate":""},{"id":3,"desc":"Baby Sit ","date":"2017-05-28","completionDate":"2017-04-10"}],"realistic":"Realistic 1","timebased":"2017-06-15","startDate":"2017-03-10"};
 		var goalStartDate = apiData.startDate , goalEndDate = apiData.timebased;
 		
 		var completionDatesArr =[], completedTasks = [],  totalTasks = apiData.tasks.length , isStart = 1;
