@@ -124,7 +124,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-life-admin name="life-admin"></ing-life-admin>
           <ing-pick-coach name="pick-coach"></ing-pick-coach>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
-		  <ing-goal-tracking name="goal-tracking"></ing-goal-tracking>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -164,13 +163,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         setInterval(function () { if (!window.isAdmin) {
           this.$.notifications.generateRequest(); 
         }}.bind(this), 5000);
-
-        this.addEventListener('notificationclick', function(event) {
-          console.log('[Service Worker] Notification click Received.', event.notification.title);
-          event.notification.close();
-          window.history.pushState({}, null, '/goals-tracking-specific');
-          //window.dispatchEvent(new CustomEvent('location-changed'));
-        });
       },
       observers: [
         '_routePageChanged(routeData.page)',
