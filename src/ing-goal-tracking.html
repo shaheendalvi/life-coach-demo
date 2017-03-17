@@ -100,9 +100,10 @@
 			type: Object
 		}
       },
-	  attached: function() {
+	  
+	  refreshme: function() {
 		var apiData = JSON.parse(window.localStorage.getItem('goals')).list;
-		var xAxisStartDate =[], xAxisStopDate = [], goalData = [];
+		var goalData = [];
 		$.each(apiData, function (key, goal) {
 			goal['color']= colors[goal.id]; 	
 			goalData.push(goal);
@@ -125,8 +126,7 @@
 			goal['color']= colors[goal.id]; 	
 			goalData.push(goal);
 		});
-		console.log("xAxisStartDate...", xAxisStartDate);
-		console.log("xAxisStopDate...", xAxisStopDate);
+
 		this.goalsData = goalData;
 		var jdata = {
 			"Goal 1": {
@@ -170,17 +170,7 @@
 			min: 0,
 			max: 100
 		};
-		/*this.yAxis = {
-            title: {
-                text: 'Rate',
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }],
-            min: 0
-        };*/
+		
         
         this.chartData = seriesArr;
 		

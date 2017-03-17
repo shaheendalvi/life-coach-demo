@@ -115,16 +115,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-welcome name="welcome"></ing-welcome>
           <ing-wheelpretext name="wheelpretext"></ing-wheelpretext>
 		  <ing-wheel-of-life name="wheeloflife" lifepreference="{{wheelOfLifePreference}}"></ing-wheel-of-life>
-          <ing-goal-tracking-specific name="goal-tracking-specific"></ing-goal-tracking-specific>
+          <ing-goal-tracking-specific id="goalTrackSpecific" name="goal-tracking-specific"></ing-goal-tracking-specific>
           <ing-share-with-friends name="share-with-friends"></ing-share-with-friends>
           <ing-share-with-friends-preview name="share-with-friends-preview"></ing-share-with-friends-preview>
           <ing-smart-goals name="smart-goals"></ing-smart-goals>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
-		  <ing-goal-tracking name="goal-tracking"></ing-goal-tracking>
+		  <ing-goal-tracking id="goalTrack" name="goal-tracking"></ing-goal-tracking>
           <ing-life-admin name="life-admin"></ing-life-admin>
           <ing-pick-coach name="pick-coach"></ing-pick-coach>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
-		  <ing-goal-tracking name="goal-tracking"></ing-goal-tracking>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -178,6 +177,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged: function(page) {
         this.page = page || 'welcome';
+		if(this.page === 'goal-tracking'){
+          this.$.goalTrack.refreshme();
+        }
+		if(this.page === 'goal-tracking-specific'){
+          this.$.goalTrackSpecific.refreshme();
+        }
       },
 
        signedInChanged: function(e, data) {
