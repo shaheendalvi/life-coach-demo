@@ -103,8 +103,15 @@
 	displayIndex: function(index) {
         return index + 1;
     },
+	refreshme: function() {
+		this.updatePageData();
+	},
 	ready: function() {
+		this.updatePageData();
+	},
+	updatePageData: function() {
       var goalNum = window.location.pathname.split('/');
+
       if (goalNum) {
         goalNum = goalNum.pop();
       } else goalNum = 0;
@@ -195,7 +202,7 @@
 		};
 		
 	   this.chartData = chartData ;// [[ Date.parse('2017-03-15'),0],[ Date.parse('2017-04-17'),20],[ Date.parse('2017-05-28'),60]];
-	   this.$.chart._chart.setSize(window.innerWidth,200, false);
+	   this.$.chart._chart.setSize('',200, false);
 		
 	},
 	
