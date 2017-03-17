@@ -68,10 +68,18 @@
 				left: 0.25em;
 				transform: rotate(-135deg);
 			}
+			.chart {
+				
+			}
     </style>
+	<style is="custom-style">
+	  :root {
+		--highcharts-min-height:0;
+	  }
+ </style>
     <div class="container">
 			<!--paper-button  raised class="login-button button-width"><a href="/share-with-friends" class="link">share goals with friend</a></paper-button-->
-		<div>
+		<div class="chart" sty>
 			<highcharts-chart type="spline" id="chart" x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}"  chartOptions="{ }" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..." tooltipOptions={{tooltipOptions}}></highcharts-chart>
 		</div>
 		<div style="float:left;>
