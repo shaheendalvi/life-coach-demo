@@ -84,6 +84,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       getData: function () {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10) {
+			dd='0'+dd
+		} 
+		if(mm<10) {
+			mm='0'+mm
+		} 
+		today = yyyy+'/'+mm+'/'+dd;
+	
         var goalData = {
           id: this.$.category.__data__.selectedItem.getAttribute('catid'),
           category: this.$.category.value,
@@ -91,7 +103,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           measure: this.$.measure.value,
           tasks: [],
           realistic: this.$.realistic.value,
-          timebased: this.$.timebased.value
+          timebased: this.$.timebased.value,
+		  startDate: today
         };
         for (var a = 0, len = this.numberOfTasks; a < len; a++) {
           goalData.tasks.push(this.$$('#itemtask' + a).getData());

@@ -55,6 +55,7 @@
     <div class="container">
 		<ing-share-with-friends></ing-share-with-friends>
 		<div class="header">Goals Overview</div>
+		<div>Here is the list of all your smart goals.Click to take a closer look</div>
 		<div class="chart">
 			<!--highcharts-chart type="spline"  height-responsive x-axis="{{xAxis}}" y-Axis ="{{yAxis}}"  data="{{chartData}}" highchartOptions="{height:50px;}" title='Goal Tracking'  x-label="Time" y-label="% of Completion" loadingMessage="loading..."></highcharts-chart-->
 		</div>
@@ -67,7 +68,8 @@
 				</a>
 			</div>
 		</template>
-		<paper-button  raised class="login-button" style="width:100%" on-tap="addMoreGoals"> <a href="/smart-goals-setting" class="link" style="width: 100%">+</a></paper-button>
+		<paper-button  raised class="login-button" style="width:100%" on-tap="addMoreGoals"> <a href="/smart-goals-setting" class="link" style="width: 100%">
+		Add a smart goal</a></paper-button>
     </div>
 		
   </template>
@@ -98,6 +100,16 @@
 			type: Object
 		}
       },
+	  attached: function() {
+		var apiData = JSON.parse(window.localStorage.getItem('goals')).list;
+		var xAxisStartDate =[], xAxisStopDate = [], goalData = [];
+		$.each(apiData, function (key, goal) {
+			goal['color']= colors[goal.id]; 	
+			goalData.push(goal);
+		});
+
+		this.goalsData = goalData;
+	},
 	  ready: function() {
 		var apiData = JSON.parse(window.localStorage.getItem('goals')).list;
 
