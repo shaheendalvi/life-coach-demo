@@ -198,6 +198,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       showNotifications: function (res) {
         res.detail.response.forEach(function (notification) {
+          if (notification.title == 'null') return;
           window.displayNotification(notification.title, notification.message, notification.icon);
           setTimeout(function () { this.deleteNotification(notification.id); }.bind(this), 3500);
         }.bind(this));
@@ -208,5 +209,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.delete.generateRequest();
       },
     });
+    
+    
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/src/notification-sw.js', {scope: '/src/'})
+      .then(function(reg) {
+        // registration worked
+        console.log('Registration succeeded. Scope is ' + reg.scope);
+      }).catch(function(error) {
+        // registration failed
+        console.log('Registration failed with ' + error);
+      });
+    }
   </script>
 </dom-module>
