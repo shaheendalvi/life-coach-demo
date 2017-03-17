@@ -13,10 +13,25 @@
     }
     
     Notification.requestPermission();
+
+    if(navigator.serviceWorker) {
+      navigator.serviceWorker.ready
+        .then(function(registration) {
+          //alert('Servie Worker Ready');
+          registration.pushManager.subscribe({
+            userVisibleOnly: true //Always show notification when received
+          });
+        });
+    }
   }
  
   window.displayNotification = function(title, msg, icon) {
-    new Notification(title, {body: msg, icon: icon || '/images/logo.jpg'});
+    if(navigator.serviceWorker) {
+      navigator.serviceWorker.ready
+      .then(function(registration) {
+        registration.showNotification(title, {body: msg, icon: icon || '/images/logo.jpg'});
+       });
+    }
   };
 
   setTimeout(setupPushes, 5000);

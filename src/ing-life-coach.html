@@ -165,6 +165,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.notifications.generateRequest(); 
         }}.bind(this), 5000);
         
+        /*setTimeout(function () {
+          new Notification('Hard Title', {body: 'Straight hardcoded', icon: '/images/logo.jpg'});
+          window.displayNotification('Hard coded not', 'Message goes here please', '');
+          alert('Here 4');
+        }, 10000);*/
+        
         /*this.addEventListener('notificationclick', function(event) {
           console.log('[Service Worker] Notification click Received.');
           event.notification.close();

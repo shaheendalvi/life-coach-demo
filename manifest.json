@@ -1,7 +1,7 @@
 {
   "name": "ING Life Coach",
   "short_name": "LifeCoach",
-  "start_url": "/?homescreen=1",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#FF6200",
   "background_color": "#FFFFFF",
