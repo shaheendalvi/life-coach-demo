@@ -17,7 +17,6 @@
     if(navigator.serviceWorker) {
       navigator.serviceWorker.ready
         .then(function(registration) {
-          //alert('Servie Worker Ready');
           registration.pushManager.subscribe({
             userVisibleOnly: true //Always show notification when received
           });
