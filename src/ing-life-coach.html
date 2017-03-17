@@ -162,7 +162,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {id:'FH', order:7, score:5, weight:0.5, color:'#D0D93C', label:'Fun & Hobbies'}];
         
         setInterval(function () { if (!window.isAdmin) {
-          //console.log('*** Get Notifications ', window.isAdmin);
           this.$.notifications.generateRequest(); 
         }}.bind(this), 5000);
         
@@ -203,14 +202,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       showNotifications: function (res) {
         res.detail.response.forEach(function (notification) {
           window.displayNotification(notification.title, notification.message, notification.icon);
-          this.deleteNotification(notification.id);
+          setTimeout(function () { this.deleteNotification(notification.id); }.bind(this), 3500);
         }.bind(this));
       },
                                                 
-      /*deleteNotification: function (id) {
+      deleteNotification: function (id) {
         this.$.delete.url = 'https://savegoals.restlet.net/v1/notifications/' + id;
         this.$.delete.generateRequest();
-      },*/
+      },
     });
   </script>
 </dom-module>
