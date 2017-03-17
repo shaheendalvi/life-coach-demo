@@ -38,6 +38,36 @@
 			.task-header {
 				font-size:12px;
 			}
+			.chevron::before {
+				border-style: solid;
+				border-width: 0.25em 0.25em 0 0;
+				content: '';
+				display: inline-block;
+				height: 0.45em;
+				left: 0.15em;
+				position: relative;
+				top: 0.15em;
+				transform: rotate(-45deg);
+				vertical-align: top;
+				width: 0.45em;
+				color:#4285f4;
+			}
+
+			.chevron.right:before {
+				left: 0;
+				transform: rotate(45deg);
+			}
+
+			.chevron.bottom:before {
+				top: 4px;
+				margin-right: 4px;
+				transform: rotate(135deg);
+			}
+
+			.chevron.left:before {
+				left: 0.25em;
+				transform: rotate(-135deg);
+			}
     </style>
     <div class="container">
 			<!--paper-button  raised class="login-button button-width"><a href="/share-with-friends" class="link">share goals with friend</a></paper-button-->
@@ -48,7 +78,7 @@
 		<div class="header" style="float:left;padding-bottom:10px;"> {{goalData.specific}} </div>
 		<template is="dom-repeat" items="{{goalData.tasks}}">
 		  <div class="goal-container">
-			<span on-tap="collapseToggle"><+></span>
+			<span on-tap="collapseToggle" class="chevron bottom"></span>
 			<span style="width:100%;"><strong>Task {{displayIndex(index)}}: </strong>{{item.desc}}</span>
 			<iron-collapse opened="{{item.state}}">
 			  <div class="task-detail">
