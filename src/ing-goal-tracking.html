@@ -99,7 +99,19 @@
 		colors: {
 			type: Object
 		}
+		
       },
+			refreshme: function(){
+				var apiData = JSON.parse(window.localStorage.getItem('goals')).list;
+				var goalData = [];
+				$.each(apiData, function (key, goal) {
+				goal['color']= colors[goal.id]; 
+				goalData.push(goal);
+				});
+
+				this.goalsData = goalData;
+
+			},
 	  
 	  refreshme: function() {
 		var apiData = JSON.parse(window.localStorage.getItem('goals')).list;

@@ -34,6 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="my-icons.html">
 <script src="notifications.js"></script>
 
+
 <dom-module id="ing-life-coach">
   <template>
     <style>
@@ -73,7 +74,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-ajax id="delete" url="https://savegoals.restlet.net/v1/notifications/" headers='{"authorization": "Basic NjY4NjA2ZmItMGVkNS00MjNiLThmNWItZTU2MGVkZWNjMzJiOmEzYjQyZmE0LTY1Y2MtNGE3Mi1iMWNmLTA5MjFlZjcwZGFkNg==", "content-type": "application/json", "accept": "application/json"}' handle-as="json" method="DELETE"></iron-ajax>
     <iron-signals 
         on-iron-signal-signin-changed="signedInChanged"
-        on-iron-signal-navigate="navigateToView"></iron-signals>
+        on-iron-signal-navigate="navigateToView"
+        on-iron-signal-current-changed="currentItemChanged"></iron-signals>
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -96,6 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a name="life-admin" href="/life-admin">Admin</a>
           
           <a name="broken-fake-leave-at-bottom" href="leave this">&nbsp;</a>
+          <a name="timemanagement" href="/timemanagement">Time Management</a>
         </iron-selector>
       </app-drawer>
 
@@ -123,7 +126,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <ing-life-admin name="life-admin"></ing-life-admin>
           <ing-pick-coach name="pick-coach"></ing-pick-coach>
           <ing-smart-goals-setting name="smart-goals-setting"></ing-smart-goals-setting>
+		  <!--<ing-goal-tracking name="goal-tracking"></ing-goal-tracking>-->
           <my-view404 name="view404"></my-view404>
+          <ing-timemanagement name="timemanagement" itemcollection="{{TodoItemsCollection}}"></ing-timemanagement>
+          <ing-itemlist name="itemlist"  itemcollection="{{TodoItemsCollection}}"></ing-itemlist>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -146,6 +152,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         wheelOfLifePreference: {
           type: Object,
           value: null
+        },
+        TodoItemsCollection: {
+          type: Object,
+          value: null
         }
       },
 
@@ -158,10 +168,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           {id:'HM', order:5, score:5, weight:0.5, color:'#3D3DAA', label:'Home'},
           {id:'RM', order:6, score:5, weight:0.5, color:'#AB0066', label:'Romance'},
           {id:'FH', order:7, score:5, weight:0.5, color:'#D0D93C', label:'Fun & Hobbies'}];
-        
+        this.TodoItemsCollection = {
+            currentItem: 0,
+            todoItems: [{id: 0, items: [{label: 'Homeloan installment', description: ' '},
+            {label: 'Car Rego Renewal', description: ' '}]},
+                        {id: 1, items: [{label: 'Dentist appointment', description: ''},
+                        {label: 'Call Childhood best friend', description: ''}]},
+                        {id: 2, items: [{label: 'Get lunch coupon as Offer ending soon', description: ''}]},
+                        {id: 3, items: [{label: 'Buy new clothes', description: ''}]}]
+        };
+
         setInterval(function () { if (!window.isAdmin) {
           this.$.notifications.generateRequest(); 
         }}.bind(this), 5000);
+      },
+      currentItemChanged:function(){
+        this.page = 'itemlist';
       },
       observers: [
         '_routePageChanged(routeData.page)',
@@ -169,7 +191,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged: function(page) {
         this.page = page || 'welcome';
-		if(this.page === 'goal-tracking'){
+        if(this.page === 'goal-tracking'){
           this.$.goalTrack.refreshme();
         }
 		if(this.page === 'goal-tracking-specific'){
